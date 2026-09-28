@@ -199,7 +199,63 @@
       border-radius: 999px;
       font-size: 0.88rem;
       font-weight: 600;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
     }
+    .chip:hover, .chip:focus {
+      background: rgba(0,116,129,0.16);
+    }
+    .chip.active {
+      background: var(--hmg-teal);
+      color: #fff;
+    }
+    .search-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      max-width: 720px;
+    }
+    .search-box input {
+      flex: 1 1 240px;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(0,116,129,0.25);
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    .results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+    .result-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      text-align: left;
+    }
+    .result-card h3 { margin: 0 0 0.3rem; font-size: 1.1rem; }
+    .result-card p { margin: 0.35rem 0; font-size: 0.93rem; color: var(--muted); }
+    .result-card .label { font-weight: 600; color: var(--text); }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      margin-right: 0.75rem;
+    }
+    .status-msg {
+      text-align: center;
+      color: var(--muted);
+      padding: 1.5rem;
+    }
+    .status-msg.error { color: #b42318; background: #fff0f0; border-radius: var(--radius); }
     .workflow {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -286,7 +342,7 @@
       <h1>Encuentra al médico adecuado para ti</h1>
       <p>En Hospital HMG Coyoacán conectamos pacientes con profesionales independientes de la salud. Busca por especialidad, síntoma o nombre y contacta directamente.</p>
       <div class="hero-actions">
-        <a href="#especialidades" class="btn btn-primary">Buscar especialidad</a>
+        <a href="#buscar-medicos" class="btn btn-primary">Buscar especialidad</a>
         <a href="https://crm.hospitalhmg.com/crm/login" class="btn btn-secondary">Acceso médicos</a>
       </div>
     </div>
@@ -319,25 +375,34 @@
     </div>
   </section>
 
-  <section id="especialidades" class="section bg-surface">
-    <h2 class="section-title">Principales especialidades</h2>
-    <p class="section-subtitle">Médicos credencializados listos para atenderte.</p>
-    <div class="specialties" id="specialty-cloud">
-      <span class="chip">Ginecología y Obstetricia</span>
-      <span class="chip">Cirugía General</span>
-      <span class="chip">Anestesiología</span>
-      <span class="chip">Pediatría</span>
-      <span class="chip">Cardiología</span>
-      <span class="chip">Medicina Interna</span>
-      <span class="chip">Ortopedia</span>
-      <span class="chip">Dermatología</span>
-      <span class="chip">Oftalmología</span>
-      <span class="chip">Urología</span>
-      <span class="chip">Neurocirugía</span>
-      <span class="chip">Gastroenterología</span>
+  <section id="buscar-medicos" class="section bg-surface">
+    <h2 class="section-title">Busca tu médico</h2>
+    <p class="section-subtitle">Médicos credencializados listos para atenderte. Escribe una especialidad o nombre, o elige una especialidad destacada.</p>
+
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Ej. Cardiología, Pediatra, García..." aria-label="Buscar médico o especialidad" />
+      <button class="btn btn-primary" id="search-btn">Buscar</button>
+      <button class="btn btn-secondary" id="clear-btn" style="display:none">Limpiar</button>
     </div>
+
+    <div class="specialties" id="specialty-cloud">
+      <button class="chip" type="button" data-specialty="Ginecología y Obstetricia">Ginecología y Obstetricia</button>
+      <button class="chip" type="button" data-specialty="Cirugía General">Cirugía General</button>
+      <button class="chip" type="button" data-specialty="Anestesiología">Anestesiología</button>
+      <button class="chip" type="button" data-specialty="Pediatría">Pediatría</button>
+      <button class="chip" type="button" data-specialty="Cardiología">Cardiología</button>
+      <button class="chip" type="button" data-specialty="Medicina Interna">Medicina Interna</button>
+      <button class="chip" type="button" data-specialty="Ortopedia">Ortopedia</button>
+      <button class="chip" type="button" data-specialty="Dermatología">Dermatología</button>
+      <button class="chip" type="button" data-specialty="Oftalmología">Oftalmología</button>
+      <button class="chip" type="button" data-specialty="Urología">Urología</button>
+      <button class="chip" type="button" data-specialty="Neurocirugía">Neurocirugía</button>
+      <button class="chip" type="button" data-specialty="Gastroenterología">Gastroenterología</button>
+    </div>
+
+    <div id="results" class="results"></div>
     <noscript>
-      <p style="text-align:center;color:var(--muted);margin-top:1rem;">Activa JavaScript para ver el listado dinámico completo.</p>
+      <p class="status-msg">Activa JavaScript para usar el buscador de médicos.</p>
     </noscript>
   </section>
 
@@ -400,26 +465,131 @@
   <script async type="text/javascript" src="https://unpkg.com/@elevenlabs/convai-widget-embed"></script>
 
   <script>
-    // Cargar listado dinámico de especialidades desde backend público
-    (async () => {
-      try {
-        const res = await fetch('https://crm.hospitalhmg.com/api/elevenlabs-public/list-specialties', {
+    (() => {
+      const input = document.getElementById('search-input');
+      const btn = document.getElementById('search-btn');
+      const clearBtn = document.getElementById('clear-btn');
+      const results = document.getElementById('results');
+      const cloud = document.getElementById('specialty-cloud');
+      const API_BASE = '/api/elevenlabs-public';
+
+      function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+      }
+
+      function setStatus(html, isError = false) {
+        results.innerHTML = `<div class="status-msg${isError ? ' error' : ''}">${html}</div>`;
+      }
+
+      function renderDoctors(data) {
+        if (!data.found || !Array.isArray(data.doctors) || data.doctors.length === 0) {
+          setStatus(escapeHtml(data.message || 'No se encontraron médicos. Prueba con otra especialidad o nombre.'));
+          return;
+        }
+        results.innerHTML = data.doctors.map(d => {
+          const phone = d.telefono && d.telefono !== 'No disponible' ? escapeHtml(d.telefono) : '';
+          const email = d.email && d.email !== 'No disponible' ? escapeHtml(d.email) : '';
+          const specialty = escapeHtml(d.especialidades).replace(/, /g, ' · ');
+          const phoneLink = phone ? `<a class="contact-link" href="tel:${phone.replace(/\s+/g, '')}">Llamar ${phone}</a>` : '';
+          const whatsappLink = phone ? `<a class="contact-link" href="https://wa.me/${phone.replace(/\D/g, '').replace(/^1?/, '')}" target="_blank" rel="noopener">WhatsApp</a>` : '';
+          const emailLink = email ? `<a class="contact-link" href="mailto:${email}">Email</a>` : '';
+          return `
+            <article class="result-card">
+              <h3>${escapeHtml(d.nombre)}</h3>
+              <p><span class="label">Especialidades:</span> ${specialty}</p>
+              <p><span class="label">Consultorio:</span> ${escapeHtml(d.consultorio)}</p>
+              <p><span class="label">Profesión:</span> ${escapeHtml(d.profesion)} · ${escapeHtml(d.cedula)}</p>
+              ${(phoneLink || whatsappLink || emailLink) ? `<div>${phoneLink}${whatsappLink}${emailLink}</div>` : ''}
+              <p style="font-size:0.82rem;color:#6b7b7f;margin-top:0.6rem;">${escapeHtml(d.disclaimer)}</p>
+            </article>
+          `;
+        }).join('');
+      }
+
+      async function searchDoctors(payload) {
+        results.innerHTML = '<div class="status-msg">Buscando médicos...</div>';
+        clearBtn.style.display = 'inline-flex';
+        try {
+          const res = await fetch(`${API_BASE}/search-doctors`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...payload, limit: 10 })
+          });
+          if (!res.ok) throw new Error('Error de red');
+          const data = await res.json();
+          if (!data.success) throw new Error(data.message || 'Error al buscar');
+          renderDoctors(data);
+        } catch (err) {
+          console.error(err);
+          setStatus('No pudimos completar la búsqueda. Intenta de nuevo o contacta a recepción.', true);
+        }
+      }
+
+      async function searchByTerm(term) {
+        const t = term.trim();
+        if (!t) return;
+        input.value = t;
+        // Try as specialty first; if no results, try as doctor name
+        let res = await fetch(`${API_BASE}/search-doctors`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: '{}'
-        });
-        if (!res.ok) return;
-        const data = await res.json();
-        if (data.success && Array.isArray(data.specialties)) {
-          const cloud = document.getElementById('specialty-cloud');
-          cloud.innerHTML = data.specialties
-            .slice(0, 24)
-            .map(s => `<span class="chip">${s.nombre.replace(/</g, '&lt;')}</span>`)
-            .join('');
+          body: JSON.stringify({ specialty: t, limit: 10 })
+        }).then(r => r.json()).catch(() => ({ success: false }));
+        if (res.success && res.found && res.doctors && res.doctors.length) {
+          renderDoctors(res);
+          return;
         }
-      } catch (e) {
-        console.log('No se pudo cargar especialidades dinámicas', e);
+        res = await fetch(`${API_BASE}/search-doctors`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ doctor_name: t, limit: 10 })
+        }).then(r => r.json()).catch(() => ({ success: false }));
+        if (res.success) {
+          renderDoctors(res);
+        } else {
+          setStatus('No se encontraron médicos. Prueba con otra especialidad o nombre.', true);
+        }
       }
+
+      btn.addEventListener('click', () => searchByTerm(input.value));
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') searchByTerm(input.value); });
+
+      cloud.addEventListener('click', e => {
+        const chip = e.target.closest('button.chip');
+        if (!chip) return;
+        e.preventDefault();
+        cloud.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        searchDoctors({ specialty: chip.dataset.specialty });
+      });
+
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        cloud.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        results.innerHTML = '';
+        clearBtn.style.display = 'none';
+      });
+
+      // Load dynamic specialty list from backend and replace chips if available
+      (async () => {
+        try {
+          const res = await fetch(`${API_BASE}/list-specialties`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: '{}'
+          });
+          if (!res.ok) return;
+          const data = await res.json();
+          if (data.success && Array.isArray(data.specialties)) {
+            cloud.innerHTML = data.specialties
+              .slice(0, 30)
+              .map(s => `<button class="chip" type="button" data-specialty="${escapeHtml(s.nombre)}">${escapeHtml(s.nombre)}</button>`)
+              .join('');
+          }
+        } catch (e) {
+          console.log('No se pudo cargar especialidades dinámicas', e);
+        }
+      })();
     })();
   </script>
 </body>
