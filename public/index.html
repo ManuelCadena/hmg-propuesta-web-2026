@@ -596,7 +596,45 @@
     </div>
   </section>
 
-  <section id="buscar-medicos" class="section bg-surface">
+<section id="lina" class="section lina-chat-section">
+    <h2 class="section-title">Habla con LINA</h2>
+    <p class="section-subtitle">Tu asistente virtual de HMG. Pregunta por especialidades, médicos o datos de contacto.</p>
+
+    <div class="lina-chat" role="region" aria-label="Chat con LINA">
+      <div class="lina-header">
+        <div class="lina-header-title">
+          <span class="lina-status offline" id="lina-status" aria-label="Desconectado"></span>
+          <h3>LINA — Asistente Virtual HMG</h3>
+        </div>
+        <div class="lina-header-actions">
+          <button type="button" class="lina-header-btn emergency" id="lina-emergency" title="En emergencias llama al 911">Emergencia</button>
+          <button type="button" class="lina-header-btn" id="lina-new" title="Nueva conversación">Nueva</button>
+        </div>
+      </div>
+      <div class="lina-messages" id="lina-messages" aria-live="polite" aria-atomic="false">
+        <div class="lina-message lina">
+          <p>Hola, soy LINA. Puedo orientarte para encontrar un médico, una especialidad o los datos de contacto del hospital. ¿En qué te ayudo?</p>
+          <div class="lina-suggestions" aria-label="Sugerencias">
+            <button class="lina-chip" type="button">¿Qué especialidades tienen?</button>
+            <button class="lina-chip" type="button">Buscar un cardiólogo</button>
+            <button class="lina-chip" type="button">Teléfono de recepción</button>
+            <button class="lina-chip" type="button">¿Necesito urgencias?</button>
+          </div>
+        </div>
+      </div>
+      <div class="lina-typing-indicator hidden" id="lina-typing" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+      <form class="lina-input-area" id="lina-form">
+        <button type="button" class="mic" id="lina-mic" title="Hablar" aria-label="Hablar">🎤</button>
+        <input type="text" id="lina-input" placeholder="Escribe tu pregunta..." autocomplete="off" aria-label="Mensaje para LINA" />
+        <button type="submit" id="lina-send" title="Enviar" aria-label="Enviar">➤</button>
+      </form>
+    </div>
+    <p class="lina-legal">LINA no diagnostica, prescribe ni interpreta estudios. Emergencias: llama al 911. <button type="button" id="lina-call" class="lina-call-link">Llamar a recepción</button>.</p>
+  </section>
+
+<section id="buscar-medicos" class="section bg-surface">
     <h2 class="section-title">Busca tu médico</h2>
     <p class="section-subtitle">Médicos credencializados listos para atenderte. Escribe una especialidad o nombre, o elige una especialidad destacada.</p>
 
@@ -654,45 +692,7 @@
     </div>
   </section>
 
-  <section id="lina" class="section lina-chat-section">
-    <h2 class="section-title">Habla con LINA</h2>
-    <p class="section-subtitle">Tu asistente virtual de HMG. Pregunta por especialidades, médicos o datos de contacto.</p>
-
-    <div class="lina-chat" role="region" aria-label="Chat con LINA">
-      <div class="lina-header">
-        <div class="lina-header-title">
-          <span class="lina-status offline" id="lina-status" aria-label="Desconectado"></span>
-          <h3>LINA — Asistente Virtual HMG</h3>
-        </div>
-        <div class="lina-header-actions">
-          <button type="button" class="lina-header-btn emergency" id="lina-emergency" title="En emergencias llama al 911">Emergencia</button>
-          <button type="button" class="lina-header-btn" id="lina-new" title="Nueva conversación">Nueva</button>
-        </div>
-      </div>
-      <div class="lina-messages" id="lina-messages" aria-live="polite" aria-atomic="false">
-        <div class="lina-message lina">
-          <p>Hola, soy LINA. Puedo orientarte para encontrar un médico, una especialidad o los datos de contacto del hospital. ¿En qué te ayudo?</p>
-          <div class="lina-suggestions" aria-label="Sugerencias">
-            <button class="lina-chip" type="button">¿Qué especialidades tienen?</button>
-            <button class="lina-chip" type="button">Buscar un cardiólogo</button>
-            <button class="lina-chip" type="button">Teléfono de recepción</button>
-            <button class="lina-chip" type="button">¿Necesito urgencias?</button>
-          </div>
-        </div>
-      </div>
-      <div class="lina-typing-indicator hidden" id="lina-typing" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </div>
-      <form class="lina-input-area" id="lina-form">
-        <button type="button" class="mic" id="lina-mic" title="Hablar" aria-label="Hablar">🎤</button>
-        <input type="text" id="lina-input" placeholder="Escribe tu pregunta..." autocomplete="off" aria-label="Mensaje para LINA" />
-        <button type="submit" id="lina-send" title="Enviar" aria-label="Enviar">➤</button>
-      </form>
-    </div>
-    <p class="lina-legal">LINA no diagnostica, prescribe ni interpreta estudios. Emergencias: llama al 911. <button type="button" id="lina-call" class="lina-call-link">Llamar a recepción</button>.</p>
-  </section>
-
-  <section class="section">
+<section class="section">
     <div class="legal">
       <strong>Importante:</strong> Los servicios médicos son prestados por profesionales independientes bajo su propia responsabilidad profesional. HMG no interviene en diagnósticos, honorarios o decisiones clínicas. En una emergencia, acuda a urgencias o llame al 911.
     </div>
@@ -854,8 +854,64 @@
       let reconnectTimer = null;
       let currentAssistantBubble = null;
       let currentAssistantText = '';
-      let isSpeaking = false;
+      let currentAudioBubble = null;
+      let currentAudioChunks = [];
       let contactPhone = '';
+      let voiceEnabled = true;
+
+      // --- audio playback (ElevenLabs PCM 16 kHz mono) ---
+      let audioCtx = null;
+      let activeSource = null;
+      let audioQueue = [];
+      let isPlayingAudio = false;
+
+      function ensureAudio() {
+        if (!audioCtx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (AC) audioCtx = new AC({ sampleRate: 16000 });
+        }
+        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+      }
+
+      function base64ToInt16(b64) {
+        const raw = atob(b64);
+        const bytes = new Uint8Array(raw.length);
+        for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+        return new Int16Array(bytes.buffer);
+      }
+
+      function buildAudioBuffer(chunks) {
+        let total = 0;
+        const arrays = chunks.map(b64 => { const a = base64ToInt16(b64); total += a.length; return a; });
+        const buffer = audioCtx.createBuffer(1, total, 16000);
+        const channel = buffer.getChannelData(0);
+        let offset = 0;
+        arrays.forEach(arr => { for (let i = 0; i < arr.length; i++) channel[offset++] = arr[i] / 32768; });
+        return buffer;
+      }
+
+      function queueAudio(chunks) {
+        if (!chunks || !chunks.length) return;
+        ensureAudio();
+        audioQueue.push(buildAudioBuffer(chunks));
+        if (!isPlayingAudio) playNextAudio();
+      }
+
+      function playNextAudio() {
+        if (audioQueue.length === 0) { isPlayingAudio = false; return; }
+        isPlayingAudio = true;
+        activeSource = audioCtx.createBufferSource();
+        activeSource.buffer = audioQueue.shift();
+        activeSource.connect(audioCtx.destination);
+        activeSource.start();
+        activeSource.onended = () => { activeSource = null; playNextAudio(); };
+      }
+
+      function stopAudio() {
+        if (activeSource) { try { activeSource.stop(); } catch (e) {} activeSource = null; }
+        audioQueue = [];
+        isPlayingAudio = false;
+      }
 
       function addMessage(text, role, isError = false) {
         const div = document.createElement('div');
@@ -868,15 +924,17 @@
           actions.className = 'lina-actions';
           const speakBtn = document.createElement('button');
           speakBtn.type = 'button';
-          speakBtn.textContent = isSpeaking ? 'Detener' : 'Escuchar';
+          speakBtn.textContent = 'Escuchar';
           speakBtn.addEventListener('click', () => {
-            if (isSpeaking && window.speechSynthesis) {
-              stopSpeaking();
-            } else {
-              speak(text);
-            }
+            const chunks = div.dataset.audio ? JSON.parse(div.dataset.audio) : [];
+            if (chunks.length) queueAudio(chunks);
           });
+          const stopBtn = document.createElement('button');
+          stopBtn.type = 'button';
+          stopBtn.textContent = 'Detener';
+          stopBtn.addEventListener('click', stopAudio);
           actions.appendChild(speakBtn);
+          actions.appendChild(stopBtn);
           div.appendChild(actions);
         }
         linaMessages.appendChild(div);
@@ -886,31 +944,6 @@
 
       function setTyping(show) { linaTyping.classList.toggle('hidden', !show); }
 
-      function stopSpeaking() {
-        if (window.speechSynthesis) window.speechSynthesis.cancel();
-        isSpeaking = false;
-      }
-
-      function speak(text) {
-        if (!window.speechSynthesis) return;
-        stopSpeaking();
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.lang = 'es-MX';
-        utter.rate = 1;
-        utter.pitch = 1;
-        isSpeaking = true;
-        utter.onend = () => { isSpeaking = false; };
-        window.speechSynthesis.speak(utter);
-      }
-
-      function sendWs(msg) {
-        if (ws && ws.readyState === WebSocket.OPEN) {
-          ws.send(JSON.stringify(msg));
-          return true;
-        }
-        return false;
-      }
-
       function updateStatus(connected) {
         if (connected) {
           linaStatus.classList.remove('offline');
@@ -919,6 +952,14 @@
           linaStatus.classList.add('offline');
           linaStatus.setAttribute('aria-label', 'Desconectado');
         }
+      }
+
+      function sendWs(msg) {
+        if (ws && ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify(msg));
+          return true;
+        }
+        return false;
       }
 
       function connectLina() {
@@ -938,23 +979,35 @@
                 setTimeout(() => sendWs({ type: 'pong', event_id: data.ping_event?.event_id }), delay);
                 return;
               }
+              if (data.type === 'audio') {
+                ensureAudio();
+                const b64 = data.audio_event?.audio_base_64;
+                if (!b64) return;
+                currentAudioChunks.push(b64);
+                if (currentAudioBubble) currentAudioBubble.dataset.audio = JSON.stringify(currentAudioChunks);
+                if (voiceEnabled) queueAudio([b64]);
+                return;
+              }
+              if (data.type === 'interruption') {
+                stopAudio();
+                return;
+              }
               if (data.type === 'agent_chat_response_part') {
                 const part = data.text_response_part;
                 if (!part || !part.text) return;
                 if (part.type === 'start') {
                   setTyping(false);
                   currentAssistantText = '';
+                  currentAudioChunks = [];
                   currentAssistantBubble = addMessage('', 'lina');
+                  currentAudioBubble = currentAssistantBubble;
                 } else if (part.type === 'delta' && currentAssistantBubble) {
                   currentAssistantText += part.text;
                   const para = currentAssistantBubble.querySelector('p');
                   para.textContent += part.text;
                   linaMessages.scrollTop = linaMessages.scrollHeight;
                 } else if (part.type === 'stop') {
-                  if (currentAssistantBubble) {
-                    speak(currentAssistantText);
-                    currentAssistantBubble = null;
-                  }
+                  currentAssistantBubble = null;
                 }
                 return;
               }
@@ -962,9 +1015,10 @@
                 setTyping(false);
                 const text = data.agent_response_event?.agent_response || '';
                 if (text) {
-                  stopSpeaking();
-                  addMessage(text, 'lina');
-                  speak(text);
+                  stopAudio();
+                  currentAudioChunks = [];
+                  const bubble = addMessage(text, 'lina');
+                  currentAudioBubble = bubble;
                 }
                 return;
               }
@@ -990,7 +1044,8 @@
       function sendLinaMessage(text) {
         const t = text.trim();
         if (!t) return;
-        stopSpeaking();
+        ensureAudio();
+        stopAudio();
         connectLina();
         addMessage(t, 'user');
         linaInput.value = '';
@@ -1044,10 +1099,12 @@
       });
 
       linaNew.addEventListener('click', () => {
-        stopSpeaking();
+        stopAudio();
         if (ws) { ws.close(); ws = null; }
         currentAssistantBubble = null;
+        currentAudioBubble = null;
         currentAssistantText = '';
+        currentAudioChunks = [];
         linaMessages.innerHTML = '';
         const intro = addMessage('Hola, soy LINA. Puedo orientarte para encontrar un médico, una especialidad o los datos de contacto del hospital. ¿En qué te ayudo?', 'lina');
         resetSuggestions(intro);
@@ -1074,6 +1131,10 @@
           }
         } catch (e) { console.log('No se pudo cargar teléfono de recepción', e); }
       })();
+
+      const linaObserver = new IntersectionObserver((entries) => { if (entries.some(e => e.isIntersecting)) { connectLina(); linaObserver.disconnect(); } }, { threshold: 0.1 });
+      linaObserver.observe(document.getElementById('lina'));
+    })();
 
       const linaObserver = new IntersectionObserver((entries) => { if (entries.some(e => e.isIntersecting)) { connectLina(); linaObserver.disconnect(); } }, { threshold: 0.1 });
       linaObserver.observe(document.getElementById('lina'));
