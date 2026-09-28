@@ -45,12 +45,17 @@
   .hero h1 { font-size:clamp(1.8rem,4vw,2.6rem); margin:0 0 1rem; color:var(--hmg-teal-dark); font-weight:700; }
   .hero p.lead { font-size:1.1rem; color:var(--muted); max-width:760px; margin:0 auto 1.6rem; }
   .hero-cta { display:flex; gap:0.9rem; justify-content:center; flex-wrap:wrap; margin-bottom:1.2rem; }
-  .hero-disclaimer { max-width:760px; margin:0 auto; font-size:0.88rem; color:var(--muted); background:var(--surface); border-radius:var(--radius); padding:0.9rem 1.2rem; }
+  .hero-disclaimer { max-width:760px; margin:0 auto 2rem; font-size:0.88rem; color:var(--muted); background:var(--surface); border-radius:var(--radius); padding:0.9rem 1.2rem; }
+  .hero-photo { width:100%; max-width:900px; border-radius:var(--radius); box-shadow:var(--shadow); display:block; margin:0 auto; }
+  .photo-card { width:100%; border-radius:var(--radius); box-shadow:var(--shadow); display:block; }
+  .photo-caption { font-size:0.78rem; color:var(--muted); text-align:center; margin-top:0.5rem; font-style:italic; }
+  .photo-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5rem; margin:1.5rem 0; align-items:start; }
 
   section { max-width:var(--max-width); margin:0 auto; padding:3rem 1.5rem; }
   section.alt { background:var(--surface); }
   .section-title { font-size:1.6rem; text-align:center; margin-bottom:0.6rem; color:var(--text); font-weight:700; }
   .section-subtitle { color:var(--muted); text-align:center; max-width:760px; margin:0 auto 2rem; }
+  .section-subtitle.left { text-align:left; margin:0 0 1rem; max-width:none; }
 
   .split-editorial { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; }
   .editorial-card { border-radius:var(--radius); padding:1.5rem; }
@@ -60,6 +65,7 @@
   .editorial-card p { color:var(--muted); font-size:0.95rem; margin-bottom:0; }
 
   .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5rem; }
+  .cards.single-col { grid-template-columns:1fr; }
   .card { background:var(--surface); border-radius:var(--radius); padding:1.4rem; }
   .card h3 { margin:0 0 0.5rem; font-size:1.05rem; }
   .card p { margin:0; color:var(--muted); font-size:0.92rem; }
@@ -132,6 +138,7 @@
     <a class="btn btn-secondary" href="#cirugia">Conocer el proceso</a>
   </div>
   <p class="hero-disclaimer">Este sitio ofrece información general y no sustituye una valoración médica. La posibilidad de realizar un trasplante depende de la evaluación individual del paciente, del donador, de la infraestructura hospitalaria y de la decisión del comité de trasplantes. En una emergencia, llama al 911 o acude a urgencias.</p>
+  <img class="hero-photo" src="assets-trasplante/equipo-medico.png" alt="Equipo médico revisando expediente clínico en pasillo hospitalario" loading="lazy" />
 </section>
 
 <section class="alt">
@@ -185,10 +192,18 @@
     <p class="diagram-caption">Fuente: Mayo Clinic — Living-donor transplantation overview; American Liver Foundation, guía del donante (2026). Ilustración esquemática, no representa anatomía exacta.</p>
   </div>
 
-  <div class="cards">
-    <div class="card"><h3>Voluntariedad</h3><p>El donador debe entender que se somete a cirugía sin recibir un beneficio médico directo. Puede retirarse en cualquier momento del proceso, de forma confidencial.</p></div>
-    <div class="card"><h3>Compatibilidad</h3><p>Grupo sanguíneo, volumen hepático, anatomía vascular y biliar, y proporción injerto-receptor son evaluados de forma independiente — no basta la compatibilidad sanguínea.</p></div>
-    <div class="card"><h3>Sin garantía de resultado</h3><p>La literatura reporta resultados generalmente favorables en grupos pediátricos seleccionados, pero también complicaciones. La información poblacional no predice el resultado de un caso individual.</p></div>
+  <div class="photo-grid">
+    <div>
+      <img class="photo-card" src="assets-trasplante/ilustracion-higado.png" alt="Ilustración esquemática de la anatomía del hígado" loading="lazy" />
+      <p class="photo-caption">Ilustración educativa, no fotorrealista — no representa un caso clínico real.</p>
+    </div>
+    <div>
+      <div class="cards single-col">
+        <div class="card"><h3>Voluntariedad</h3><p>El donador debe entender que se somete a cirugía sin recibir un beneficio médico directo. Puede retirarse en cualquier momento del proceso, de forma confidencial.</p></div>
+        <div class="card"><h3>Compatibilidad</h3><p>Grupo sanguíneo, volumen hepático, anatomía vascular y biliar, y proporción injerto-receptor son evaluados de forma independiente — no basta la compatibilidad sanguínea.</p></div>
+        <div class="card"><h3>Sin garantía de resultado</h3><p>La literatura reporta resultados generalmente favorables en grupos pediátricos seleccionados, pero también complicaciones. La información poblacional no predice el resultado de un caso individual.</p></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -229,10 +244,16 @@
     <p class="diagram-caption">Fuente: Johns Hopkins Medicine (Living Donor Liver Surgery); TecScience/TecSalud, "TecSalud realiza trasplante de hígado de donador vivo" (2023).</p>
   </div>
 
-  <div class="cards">
-    <div class="card"><h3>Vigilancia en recuperación</h3><p>Presión arterial, función hepática, hemoglobina, dolor, herida quirúrgica, posible fuga biliar y función pulmonar se vigilan de cerca en ambos pacientes.</p></div>
-    <div class="card"><h3>Movilización temprana</h3><p>El donador comienza progresivamente a sentarse, caminar y avanzar su dieta — reduce el riesgo de complicaciones pulmonares y trombosis.</p></div>
-    <div class="card"><h3>El alta no es el final</h3><p>La cicatrización interna y la recuperación de energía continúan durante semanas o meses después de salir del hospital.</p></div>
+  <div class="photo-grid">
+    <div>
+      <img class="photo-card" src="assets-trasplante/quirofano-moderno.png" alt="Quirófano moderno con equipo estéril, sin paciente" loading="lazy" />
+      <p class="photo-caption">Imagen ilustrativa generada por IA de un quirófano moderno — no corresponde a un procedimiento real.</p>
+    </div>
+    <div class="cards single-col">
+      <div class="card"><h3>Vigilancia en recuperación</h3><p>Presión arterial, función hepática, hemoglobina, dolor, herida quirúrgica, posible fuga biliar y función pulmonar se vigilan de cerca en ambos pacientes.</p></div>
+      <div class="card"><h3>Movilización temprana</h3><p>El donador comienza progresivamente a sentarse, caminar y avanzar su dieta — reduce el riesgo de complicaciones pulmonares y trombosis.</p></div>
+      <div class="card"><h3>El alta no es el final</h3><p>La cicatrización interna y la recuperación de energía continúan durante semanas o meses después de salir del hospital.</p></div>
+    </div>
   </div>
 </section>
 
@@ -268,6 +289,8 @@
     </svg>
     <p class="diagram-caption">Fuente: Johns Hopkins Medicine, Evaluation Process for Living Liver Donors.</p>
   </div>
+  <img class="photo-card" src="assets-trasplante/sala-espera.png" alt="Sala de espera pediátrica moderna, cálida y luminosa" loading="lazy" />
+  <p class="photo-caption">Imagen ilustrativa generada por IA de una sala de espera hospitalaria — no representa una sede específica.</p>
 </section>
 
 <section class="alt" id="riesgos">
@@ -333,9 +356,17 @@
 
 <section>
   <h2 class="section-title">Nuestro equipo</h2>
-  <p class="section-subtitle">El equipo médico que participa en este programa acumula experiencia en trasplante hepático pediátrico con donador vivo a vivo a través de la Fundación Fight for Life Club, en alianza con el Instituto Nacional de Pediatría (INP), atendiendo casos filantrópicos de bajos recursos.</p>
-  <div class="placeholder-box">
-    <strong>Sede hospitalaria en proceso de confirmación.</strong> El programa privado se implementará en una institución hospitalaria de la Ciudad de México cuya confirmación se comunicará cuando estén formalizados los acuerdos, autorizaciones sanitarias y procesos institucionales correspondientes. Por el momento, Hospital HMG opera este programa de forma virtual mientras se confirma la sede.
+  <div class="photo-grid">
+    <div>
+      <p class="section-subtitle left">El equipo médico que participa en este programa acumula experiencia en trasplante hepático pediátrico con donador vivo a vivo a través de la Fundación Fight for Life Club, en alianza con el Instituto Nacional de Pediatría (INP), atendiendo casos filantrópicos de bajos recursos.</p>
+      <div class="placeholder-box">
+        <strong>Sede hospitalaria en proceso de confirmación.</strong> El programa privado se implementará en una institución hospitalaria de la Ciudad de México cuya confirmación se comunicará cuando estén formalizados los acuerdos, autorizaciones sanitarias y procesos institucionales correspondientes. Por el momento, Hospital HMG opera este programa de forma virtual mientras se confirma la sede.
+      </div>
+    </div>
+    <div>
+      <img class="photo-card" src="assets-trasplante/manos-cuidado.png" alt="Manos de un adulto sosteniendo con cuidado la mano de un niño" loading="lazy" />
+      <p class="photo-caption">Imagen simbólica generada por IA — representa el acompañamiento del proceso, no un caso clínico real.</p>
+    </div>
   </div>
 </section>
 
