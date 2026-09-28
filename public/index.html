@@ -868,58 +868,72 @@
       let voiceEnabled = false;
       let hasShownStreaming = false;
 
-      // --- audio playback (ElevenLabs PCM 16 kHz mono) ---
-      let audioCtx = null;
-      let activeSource = null;
-      let audioQueue = [];
-      let isPlayingAudio = false;
+      // --- audio playback (ElevenLabs PCM 16 kHz mono -> WAV Blob) ---
+      let currentAudio = null;
+      let isAudioUnlocked = false;
 
-      function ensureAudio() {
-        if (!audioCtx) {
-          const AC = window.AudioContext || window.webkitAudioContext;
-          if (AC) audioCtx = new AC({ sampleRate: 16000 });
-        }
-        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-      }
-
-      function base64ToInt16(b64) {
+      function base64ToUint8Array(b64) {
         const raw = atob(b64);
-        const bytes = new Uint8Array(raw.length);
-        for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
-        return new Int16Array(bytes.buffer);
+        const out = new Uint8Array(raw.length);
+        for (let i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+        return out;
       }
 
-      function buildAudioBuffer(chunks) {
-        let total = 0;
-        const arrays = chunks.map(b64 => { const a = base64ToInt16(b64); total += a.length; return a; });
-        const buffer = audioCtx.createBuffer(1, total, 16000);
-        const channel = buffer.getChannelData(0);
-        let offset = 0;
-        arrays.forEach(arr => { for (let i = 0; i < arr.length; i++) channel[offset++] = arr[i] / 32768; });
-        return buffer;
+      function buildWav(pcm, sampleRate, channels, bitsPerSample) {
+        const byteRate = sampleRate * channels * bitsPerSample / 8;
+        const blockAlign = channels * bitsPerSample / 8;
+        const header = new Uint8Array(44);
+        const view = new DataView(header.buffer);
+        function writeStr(off, str) { for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i)); }
+        writeStr(0, 'RIFF');
+        view.setUint32(4, 36 + pcm.length, true);
+        writeStr(8, 'WAVE');
+        writeStr(12, 'fmt ');
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true);
+        view.setUint16(22, channels, true);
+        view.setUint32(24, sampleRate, true);
+        view.setUint32(28, byteRate, true);
+        view.setUint16(32, blockAlign, true);
+        view.setUint16(34, bitsPerSample, true);
+        writeStr(36, 'data');
+        view.setUint32(40, pcm.length, true);
+        const wav = new Uint8Array(header.length + pcm.length);
+        wav.set(header, 0);
+        wav.set(pcm, header.length);
+        return wav;
       }
 
-      function queueAudio(chunks) {
+      function unlockAudio() {
+        if (isAudioUnlocked) return;
+        // Play a short silent WAV to satisfy browser autoplay policies inside a user gesture.
+        const silent = new Uint8Array([82,73,70,70,56,0,0,0,87,65,86,69,102,109,116,32,16,0,0,0,1,0,1,0,128,62,0,0,0,125,0,0,2,0,16,0,100,97,116,97,2,0,0,0,0,0]);
+        const audio = new Audio(URL.createObjectURL(new Blob([silent], { type: 'audio/wav' })));
+        audio.play().then(() => { isAudioUnlocked = true; }).catch(() => {});
+      }
+
+      function playAudioChunks(chunks) {
         if (!voiceEnabled || !chunks || !chunks.length) return;
-        ensureAudio();
-        audioQueue.push(buildAudioBuffer(chunks));
-        if (!isPlayingAudio) playNextAudio();
-      }
-
-      function playNextAudio() {
-        if (audioQueue.length === 0) { isPlayingAudio = false; return; }
-        isPlayingAudio = true;
-        activeSource = audioCtx.createBufferSource();
-        activeSource.buffer = audioQueue.shift();
-        activeSource.connect(audioCtx.destination);
-        activeSource.start();
-        activeSource.onended = () => { activeSource = null; playNextAudio(); };
+        let total = 0;
+        const parts = chunks.map(b64 => { const p = base64ToUint8Array(b64); total += p.length; return p; });
+        const pcm = new Uint8Array(total);
+        let offset = 0;
+        parts.forEach(p => { pcm.set(p, offset); offset += p.length; });
+        const wav = buildWav(pcm, 16000, 1, 16);
+        const blob = new Blob([wav], { type: 'audio/wav' });
+        const url = URL.createObjectURL(blob);
+        if (currentAudio) { currentAudio.pause(); currentAudio.src = ''; }
+        currentAudio = new Audio(url);
+        currentAudio.play().then(() => {
+          currentAudio.onended = () => { URL.revokeObjectURL(url); currentAudio = null; };
+        }).catch(err => {
+          console.log('[LINA] audio play failed', err);
+          URL.revokeObjectURL(url);
+        });
       }
 
       function stopAudio() {
-        if (activeSource) { try { activeSource.stop(); } catch (e) {} activeSource = null; }
-        audioQueue = [];
-        isPlayingAudio = false;
+        if (currentAudio) { currentAudio.pause(); currentAudio.src = ''; currentAudio = null; }
       }
 
       function addMessage(text, role, isError = false) {
@@ -936,7 +950,7 @@
           speakBtn.textContent = 'Escuchar';
           speakBtn.addEventListener('click', () => {
             const chunks = div.dataset.audio ? JSON.parse(div.dataset.audio) : [];
-            if (chunks.length) queueAudio(chunks);
+            if (chunks.length) playAudioChunks(chunks);
           });
           const stopBtn = document.createElement('button');
           stopBtn.type = 'button';
@@ -999,7 +1013,7 @@
                 if (!b64) return;
                 currentAudioChunks.push(b64);
                 if (currentAudioBubble) currentAudioBubble.dataset.audio = JSON.stringify(currentAudioChunks);
-                queueAudio([b64]);
+                // Audio chunks are buffered and played when the final response arrives.
                 return;
               }
               if (data.type === 'interruption') {
@@ -1022,7 +1036,12 @@
                   para.textContent += part.text;
                   linaMessages.scrollTop = linaMessages.scrollHeight;
                 } else if (part.type === 'stop') {
+                  if (currentAudioBubble && currentAudioChunks.length) {
+                    currentAudioBubble.dataset.audio = JSON.stringify(currentAudioChunks);
+                    playAudioChunks(currentAudioChunks);
+                  }
                   currentAssistantBubble = null;
+                  currentAudioBubble = null;
                 }
                 return;
               }
@@ -1031,9 +1050,12 @@
                 const text = data.agent_response_event?.agent_response || '';
                 if (text && !hasShownStreaming) {
                   stopAudio();
-                  currentAudioChunks = [];
                   const bubble = addMessage(text, 'lina');
                   currentAudioBubble = bubble;
+                  if (currentAudioChunks.length) {
+                    currentAudioBubble.dataset.audio = JSON.stringify(currentAudioChunks);
+                    playAudioChunks(currentAudioChunks);
+                  }
                 }
                 return;
               }
@@ -1132,7 +1154,7 @@
       linaVoice.addEventListener('click', () => {
         voiceEnabled = !voiceEnabled;
         if (voiceEnabled) {
-          ensureAudio();
+          unlockAudio();
           linaVoice.textContent = 'Voz activada';
           linaVoice.classList.add('active');
           linaVoice.title = 'Desactivar voz de LINA';
