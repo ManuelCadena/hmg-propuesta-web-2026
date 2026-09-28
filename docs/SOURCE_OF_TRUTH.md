@@ -64,11 +64,20 @@ hospitalhmg.com
 - Imágenes generadas con IA: `assets/img_hero_exterior.png`, `img_atencion_humana.png`, `img_tecnologia_precision.png`, `img_equipo_multidisciplinario.png`, `img_bienestar_prevencion.png`
 - Paleta primaria: `#007481`
 
-## 8. Próximos pasos
+## 8. Estado de despliegue
+
+| Componente | Estado | URL |
+|---|---|---|
+| Homepage estática | DEPLOY-VERIFICADO | https://hospitalhmg.com |
+| API pública LINA | DEPLOY-VERIFICADO | https://hospitalhmg.com/api/elevenlabs-public |
+| CRM interno | Operativo | https://crm.hospitalhmg.com/crm/login |
+| DNS A records | Creados en Route 53 | hospitalhmg.com / www → 44.247.163.1 |
+| Certificado SSL | Let's Encrypt activo | /etc/letsencrypt/live/hospitalhmg.com |
+
+## 9. Próximos pasos
 
 1. Validar imágenes generadas con el equipo de marca.
-2. Desarrollar prototipo interactivo (Figma/React) del homepage y directorio.
-3. Conectar el directorio a la API pública `/api/elevenlabs-public`.
-4. Configurar agente LINA en ElevenLabs con tools apuntando a `/api/elevenlabs-public`.
-5. Implementar analytics, consentimiento y auditoría.
-6. Realizar pruebas de usuario y accesibilidad.
+2. Verificar resolución global del dominio en todos los resolvers.
+3. Añadir directorio interactivo de médicos (React) consumiendo `/api/elevenlabs-public`.
+4. Implementar analytics, consentimiento explícito y auditoría de conversaciones LINA.
+5. Realizar pruebas de usuario y accesibilidad.
