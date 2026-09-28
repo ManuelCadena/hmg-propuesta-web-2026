@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hospital HMG — Encuentra a tu médico</title>
+  <meta name="description" content="Hospital HMG Coyoacán. Directorio médico por especialidad. Contacta directamente a profesionales independientes de la salud." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --hmg-teal: #007481;
+      --hmg-teal-dark: #005f6b;
+      --hmg-teal-light: #7ebec5;
+      --hmg-blue: #2ea3f2;
+      --bg: #ffffff;
+      --surface: #f7f9fa;
+      --text: #1a2a2e;
+      --muted: #5b6b6f;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.07);
+      --max-width: 1160px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Open Sans", "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+    a { color: var(--hmg-teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(0,116,129,0.12);
+      z-index: 1000;
+    }
+    .nav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--hmg-teal);
+      font-size: 1.15rem;
+    }
+    .brand svg {
+      width: 32px;
+      height: 32px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+      font-size: 0.92rem;
+    }
+    .nav-links a { color: var(--text); font-weight: 500; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.7rem 1.15rem;
+      border-radius: var(--radius);
+      border: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: var(--hmg-teal);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--hmg-teal-dark); box-shadow: var(--shadow); }
+    .btn-secondary {
+      background: #fff;
+      color: var(--hmg-teal);
+      border: 1px solid rgba(0,116,129,0.25);
+    }
+    .hero {
+      position: relative;
+      background:
+        linear-gradient(105deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.82) 52%, rgba(255,255,255,0) 100%),
+        url('img_hero_exterior.png') center/cover no-repeat;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+    }
+    .hero-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      width: 100%;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+      margin: 0 0 1rem;
+      max-width: 640px;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 0 1.8rem;
+    }
+    .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+    .section-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      text-align: center;
+    }
+    .section-subtitle {
+      color: var(--muted);
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      background: #e7eef0;
+    }
+    .card h3 { margin: 0; font-size: 1.15rem; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    .specialties {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+    .chip {
+      background: rgba(0,116,129,0.08);
+      color: var(--hmg-teal-dark);
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      text-align: center;
+    }
+    .step-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--hmg-teal);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin: 0 auto 0.8rem;
+      font-size: 1.1rem;
+    }
+    .lina {
+      background: linear-gradient(135deg, rgba(0,116,129,0.06), rgba(46,163,242,0.06));
+      border-radius: var(--radius);
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+    }
+    .lina h2 { margin: 0; }
+    .lina p { max-width: 620px; margin: 0; color: var(--muted); }
+    .legal {
+      font-size: 0.88rem;
+      color: var(--muted);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+    }
+    footer {
+      background: #0d3d42;
+      color: rgba(255,255,255,0.85);
+      padding: 2.5rem 1.5rem;
+    }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+    }
+    footer a { color: var(--hmg-teal-light); }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero { background-position: 70% center; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="8" fill="#007481"/><path d="M10 28h20M12 20h16M14 12h12" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+        Hospital HMG
+      </div>
+      <nav class="nav-links">
+        <a href="#especialidades">Especialidades</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#lina">LINA</a>
+        <a href="https://crm.hospitalhmg.com/crm/login" class="btn btn-secondary">Área de médicos</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Encuentra al médico adecuado para ti</h1>
+      <p>En Hospital HMG Coyoacán conectamos pacientes con profesionales independientes de la salud. Busca por especialidad, síntoma o nombre y contacta directamente.</p>
+      <div class="hero-actions">
+        <a href="#especialidades" class="btn btn-primary">Buscar especialidad</a>
+        <a href="https://crm.hospitalhmg.com/crm/login" class="btn btn-secondary">Acceso médicos</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="como-funciona" class="section">
+    <h2 class="section-title">Tu camino: síntoma → atención → resolución</h2>
+    <p class="section-subtitle">Un flujo simple para que llegues al especialista correcto sin perder tiempo.</p>
+    <div class="workflow">
+      <div class="card">
+        <div class="step-number">1</div>
+        <h3>Describe tu síntoma o necesidad</h3>
+        <p>Usa el buscador o escribe a LINA. Sin diagnóstico automático, solo orientación segura.</p>
+      </div>
+      <div class="card">
+        <div class="step-number">2</div>
+        <h3>Encuentra especialidad y médico</h3>
+        <p>Filtra por especialidad, nombre o consultorio. Todos los médicos son profesionales independientes.</p>
+      </div>
+      <div class="card">
+        <div class="step-number">3</div>
+        <h3>Contacta o agenda cita</h3>
+        <p>Comunícate por teléfono, WhatsApp o deja tu datos para que el médico te contacte.</p>
+      </div>
+      <div class="card">
+        <div class="step-number">4</div>
+        <h3>Atención presencial</h3>
+        <p>Recibe atención directa con el profesional que elegiste. HMG facilita el acceso, no la práctica médica.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="especialidades" class="section" style="background: var(--surface);">
+    <h2 class="section-title">Principales especialidades</h2>
+    <p class="section-subtitle">Médicos credencializados listos para atenderte.</p>
+    <div class="specialties" id="specialty-cloud">
+      <span class="chip">Ginecología y Obstetricia</span>
+      <span class="chip">Cirugía General</span>
+      <span class="chip">Anestesiología</span>
+      <span class="chip">Pediatría</span>
+      <span class="chip">Cardiología</span>
+      <span class="chip">Medicina Interna</span>
+      <span class="chip">Ortopedia</span>
+      <span class="chip">Dermatología</span>
+      <span class="chip">Oftalmología</span>
+      <span class="chip">Urología</span>
+      <span class="chip">Neurocirugía</span>
+      <span class="chip">Gastroenterología</span>
+    </div>
+    <noscript>
+      <p style="text-align:center;color:var(--muted);margin-top:1rem;">Activa JavaScript para ver el listado dinámico completo.</p>
+    </noscript>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Cuidado con sentido humano</h2>
+    <p class="section-subtitle">Imágenes de referencia para ilustrar nuestros servicios.</p>
+    <div class="cards">
+      <div class="card">
+        <img src="img_atencion_humana.png" alt="Atención médica humana" loading="lazy" />
+        <h3>Atención médica humana</h3>
+        <p>Médicos que te escuchan y acompañan en cada etapa.</p>
+      </div>
+      <div class="card">
+        <img src="img_tecnologia_precision.png" alt="Tecnología y precisión" loading="lazy" />
+        <h3>Tecnología y precisión</h3>
+        <p>Equipamiento moderno para diagnósticos oportunos.</p>
+      </div>
+      <div class="card">
+        <img src="img_equipo_multidisciplinario.png" alt="Equipo multidisciplinario" loading="lazy" />
+        <h3>Equipo multidisciplinario</h3>
+        <p>Especialistas que colaboran para tu bienestar integral.</p>
+      </div>
+      <div class="card">
+        <img src="img_bienestar_prevencion.png" alt="Bienestar y prevención" loading="lazy" />
+        <h3>Bienestar y prevención</h3>
+        <p>Chequeos y consejos para mantenerte saludable.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="lina" class="section">
+    <div class="lina">
+      <h2>Habla con LINA, tu asistente de HMG</h2>
+      <p>LINA te orienta para elegir especialidad, encontrar médicos o saber nuestros datos de contacto. No diagnostica ni reemplaza la opinión médica. En emergencias, llama al 911.</p>
+      <p style="font-size:0.85rem;color:#6b7b7f;">Al usar el chat/voz aceptas que procesemos los datos necesarios solo para orientarte.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="legal">
+      <strong>Importante:</strong> Hospital HMG (licenciante de signos distintivos) opera como plataforma de conexión. Los servicios médicos son prestados por profesionales independientes bajo su propia responsabilidad profesional. HMG no interviene en diagnósticos, honorarios o decisiones clínicas. En una emergencia, acuda a urgencias o llame al 911.
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <strong>Hospital HMG Coyoacán</strong><br />
+        Árbol del Fuego 80, El Rosario, Coyoacán, 04380, CDMX<br />
+        <a href="https://crm.hospitalhmg.com/crm/login">Acceso médicos</a>
+      </div>
+      <div>
+        <a href="#">Aviso de privacidad</a> · <a href="#">Términos de uso</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ElevenLabs LINA widget -->
+  <elevenlabs-convai agent-id="agent_2001kgkn3s4cek0rk9y0m7qcbtn9" variant="compact"></elevenlabs-convai>
+  <script async type="text/javascript" src="https://unpkg.com/@elevenlabs/convai-widget-embed"></script>
+
+  <script>
+    // Cargar listado dinámico de especialidades desde backend público
+    (async () => {
+      try {
+        const res = await fetch('https://crm.hospitalhmg.com/api/elevenlabs-public/list-specialties', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: '{}'
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.success && Array.isArray(data.specialties)) {
+          const cloud = document.getElementById('specialty-cloud');
+          cloud.innerHTML = data.specialties
+            .slice(0, 24)
+            .map(s => `<span class="chip">${s.nombre.replace(/</g, '&lt;')}</span>`)
+            .join('');
+        }
+      } catch (e) {
+        console.log('No se pudo cargar especialidades dinámicas', e);
+      }
+    })();
+  </script>
+</body>
+</html>
