@@ -865,6 +865,8 @@
       let contactPhone = '';
       let voiceEnabled = false;
       let hasShownStreaming = false;
+      let reconnectCount = 0;
+      const MAX_RECONNECT = 10;
 
       // --- audio playback (ElevenLabs PCM 16 kHz mono -> WAV Blob) ---
       let currentAudio = null;
@@ -1011,12 +1013,19 @@
 
       function connectLina() {
         if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return;
+        if (reconnectCount >= MAX_RECONNECT) {
+          updateStatus(false);
+          linaStatusText.textContent = 'No se pudo reconectar';
+          console.log('[LINA] max reconnections reached');
+          return;
+        }
         updateStatus(false);
         linaStatusText.textContent = 'Conectando...';
         console.log('[LINA] connecting...');
         try {
           ws = new WebSocket(`wss://api.elevenlabs.io/v1/convai/conversation?agent_id=${AGENT_ID}`);
           ws.onopen = () => {
+            reconnectCount = 0;
             updateStatus(true);
             console.log('[LINA] connected');
             sendWs({ type: 'conversation_initiation_client_data' });
@@ -1102,8 +1111,13 @@
             updateStatus(false);
             linaStatusText.textContent = 'Desconectado';
             ws = null;
-            if (reconnectTimer) clearTimeout(reconnectTimer);
-            reconnectTimer = setTimeout(connectLina, 5000);
+            reconnectCount++;
+            if (reconnectCount <= MAX_RECONNECT) {
+              if (reconnectTimer) clearTimeout(reconnectTimer);
+              reconnectTimer = setTimeout(connectLina, 5000);
+            } else {
+              linaStatusText.textContent = 'No se pudo reconectar';
+            }
           };
         } catch (err) {
           console.error('[LINA] connection error', err);
@@ -1196,6 +1210,7 @@
         currentAudioBubble = null;
         currentAssistantText = '';
         currentAudioChunks = [];
+        reconnectCount = 0;
         linaMessages.innerHTML = '<div class="lina-typing" id="lina-connecting">Conectando con LINA...</div>';
         connectLina();
       });
