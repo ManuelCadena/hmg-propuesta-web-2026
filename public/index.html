@@ -618,15 +618,7 @@
         </div>
       </div>
       <div class="lina-messages" id="lina-messages" aria-live="polite" aria-atomic="false">
-        <div class="lina-message lina">
-          <p>Hola, soy LINA. Puedo orientarte para encontrar un médico, una especialidad o los datos de contacto del hospital. ¿En qué te ayudo?</p>
-          <div class="lina-suggestions" aria-label="Sugerencias">
-            <button class="lina-chip" type="button">¿Qué especialidades tienen?</button>
-            <button class="lina-chip" type="button">Buscar un cardiólogo</button>
-            <button class="lina-chip" type="button">Teléfono de recepción</button>
-            <button class="lina-chip" type="button">¿Necesito urgencias?</button>
-          </div>
-        </div>
+        <div class="lina-typing" id="lina-connecting">Conectando con LINA...</div>
       </div>
       <div class="lina-typing-indicator hidden" id="lina-typing" aria-hidden="true">
         <span></span><span></span><span></span>
@@ -636,6 +628,12 @@
         <input type="text" id="lina-input" placeholder="Escribe tu pregunta..." autocomplete="off" aria-label="Mensaje para LINA" />
         <button type="submit" id="lina-send" title="Enviar" aria-label="Enviar">➤</button>
       </form>
+    </div>
+    <div class="lina-suggestions" aria-label="Sugerencias" id="lina-suggestions">
+      <button class="lina-chip" type="button">¿Qué especialidades tienen?</button>
+      <button class="lina-chip" type="button">Buscar un cardiólogo</button>
+      <button class="lina-chip" type="button">Teléfono de recepción</button>
+      <button class="lina-chip" type="button">¿Necesito urgencias?</button>
     </div>
     <p class="lina-legal">LINA no diagnostica, prescribe ni interpreta estudios. Emergencias: llama al 911. <button type="button" id="lina-call" class="lina-call-link">Llamar a recepción</button>.</p>
   </section>
@@ -1025,6 +1023,7 @@
                 if (!part || !part.text) return;
                 hasShownStreaming = true;
                 if (part.type === 'start') {
+                  clearConnecting();
                   setTyping(false);
                   currentAssistantText = '';
                   currentAudioChunks = [];
@@ -1049,6 +1048,7 @@
                 setTyping(false);
                 const text = data.agent_response_event?.agent_response || '';
                 if (text && !hasShownStreaming) {
+                  clearConnecting();
                   stopAudio();
                   const bubble = addMessage(text, 'lina');
                   currentAudioBubble = bubble;
@@ -1112,18 +1112,9 @@
         trySend();
       }
 
-      function resetSuggestions(container) {
-        const suggs = document.createElement('div');
-        suggs.className = 'lina-suggestions';
-        suggs.setAttribute('aria-label', 'Sugerencias');
-        ['¿Qué especialidades tienen?', 'Buscar un cardiólogo', 'Teléfono de recepción', '¿Necesito urgencias?'].forEach(s => {
-          const b = document.createElement('button');
-          b.className = 'lina-chip';
-          b.type = 'button';
-          b.textContent = s;
-          suggs.appendChild(b);
-        });
-        container.appendChild(suggs);
+      function clearConnecting() {
+        const el = document.getElementById('lina-connecting');
+        if (el) el.remove();
       }
 
       linaForm.addEventListener('submit', e => { e.preventDefault(); sendLinaMessage(linaInput.value); });
@@ -1132,6 +1123,14 @@
         const chip = e.target.closest('.lina-chip');
         if (chip) { sendLinaMessage(chip.textContent); }
       });
+
+      const linaSuggestions = document.getElementById('lina-suggestions');
+      if (linaSuggestions) {
+        linaSuggestions.addEventListener('click', e => {
+          const chip = e.target.closest('.lina-chip');
+          if (chip) { sendLinaMessage(chip.textContent); }
+        });
+      }
 
       linaMic.addEventListener('click', () => {
         const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1173,9 +1172,7 @@
         currentAudioBubble = null;
         currentAssistantText = '';
         currentAudioChunks = [];
-        linaMessages.innerHTML = '';
-        const intro = addMessage('Hola, soy LINA. Puedo orientarte para encontrar un médico, una especialidad o los datos de contacto del hospital. ¿En qué te ayudo?', 'lina');
-        resetSuggestions(intro);
+        linaMessages.innerHTML = '<div class="lina-typing" id="lina-connecting">Conectando con LINA...</div>';
         connectLina();
       });
 
