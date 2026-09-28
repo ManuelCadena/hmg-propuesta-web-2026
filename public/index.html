@@ -36,6 +36,7 @@
       position: sticky;
       top: 0;
       background: rgba(255,255,255,0.96);
+      -webkit-backdrop-filter: blur(8px);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(0,116,129,0.12);
       z-index: 1000;
@@ -206,6 +207,8 @@
     }
     .lina h2 { margin: 0; }
     .lina p { max-width: 620px; margin: 0; color: var(--muted); }
+    .lina-legal { font-size: 0.85rem; color: #6b7b7f; }
+    .bg-surface { background: var(--surface); }
     .legal {
       font-size: 0.88rem;
       color: var(--muted);
@@ -290,7 +293,7 @@
     </div>
   </section>
 
-  <section id="especialidades" class="section" style="background: var(--surface);">
+  <section id="especialidades" class="section bg-surface">
     <h2 class="section-title">Principales especialidades</h2>
     <p class="section-subtitle">Médicos credencializados listos para atenderte.</p>
     <div class="specialties" id="specialty-cloud">
@@ -343,7 +346,7 @@
     <div class="lina">
       <h2>Habla con LINA, tu asistente de HMG</h2>
       <p>LINA te orienta para elegir especialidad, encontrar médicos o saber nuestros datos de contacto. No diagnostica ni reemplaza la opinión médica. En emergencias, llama al 911.</p>
-      <p style="font-size:0.85rem;color:#6b7b7f;">Al usar el chat/voz aceptas que procesemos los datos necesarios solo para orientarte.</p>
+      <p class="lina-legal">Al usar el chat/voz aceptas que procesemos los datos necesarios solo para orientarte.</p>
     </div>
   </section>
 
