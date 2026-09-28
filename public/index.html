@@ -934,11 +934,35 @@
         if (currentAudio) { currentAudio.pause(); currentAudio.src = ''; currentAudio = null; }
       }
 
+      function formatLinaText(text) {
+        let html = escapeHtml(text);
+        // Bold markdown **text**
+        html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        // Convert phone numbers like "55 1330 1285" into tel links
+        html = html.replace(/(\b\d{2}\s+\d{2,4}\s+\d{2,4}\s+\d{2,4}\b)/g, '<a href="tel:$1" class="lina-phone">$1</a>');
+        // Build lists for lines starting with "- "
+        const lines = html.split('\n');
+        const parts = [];
+        let inList = false;
+        lines.forEach(line => {
+          const trimmed = line.trim();
+          if (trimmed.startsWith('- ')) {
+            if (!inList) { parts.push('<ul>'); inList = true; }
+            parts.push('<li>' + trimmed.slice(2) + '</li>');
+          } else {
+            if (inList) { parts.push('</ul>'); inList = false; }
+            parts.push(line);
+          }
+        });
+        if (inList) parts.push('</ul>');
+        return parts.map(p => p.startsWith('<ul>') || p.startsWith('</ul>') || p.startsWith('<li>') ? p : p ? p + '<br>' : p).join('');
+      }
+
       function addMessage(text, role, isError = false) {
         const div = document.createElement('div');
         div.className = `lina-message ${role}${isError ? ' error' : ''}`;
         const p = document.createElement('p');
-        p.innerHTML = escapeHtml(text).replace(/\n/g, '<br>');
+        p.innerHTML = role === 'lina' && !isError ? formatLinaText(text) : escapeHtml(text).replace(/\n/g, '<br>');
         div.appendChild(p);
         if (role === 'lina' && !isError) {
           const actions = document.createElement('div');
