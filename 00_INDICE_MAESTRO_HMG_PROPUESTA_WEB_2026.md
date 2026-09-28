@@ -23,6 +23,7 @@
 | `assets/img_bienestar_prevencion.png` | Bienestar y atención preventiva. | Generado (OpenAI gpt-image-1-mini) |
 | MCP `together-image-gen` | Servidor MCP para generación de imágenes con Together AI (FLUX). | Configurado y operativo con key actualizada |
 | MCP `openai-image-gen` | Servidor MCP para generación de imágenes con OpenAI (DALL-E / gpt-image). | Configurado y operativo |
+| `docs/whitepapers/DOCUMENTO_MAESTRO_HOSPITALHMG_HOSPITAL_VIRTUAL.md` (+ `.docx`, `media/`) | Whitepaper de arquitectura/diseño/desarrollo: visión de `hospitalhmg.com` como hospital virtual completo (directorio verificado, agenda, precios cerrados, telemedicina, expediente, pagos, referencias, ranking transparente, IA de orientación, portal médico, consola HMG, stack técnico, marco legal, modelo de negocio, KPIs, roadmap, riesgos). | Roadmap de visión de largo plazo — no implementado, agregado 2026-09-28 |
 
 ---
 
