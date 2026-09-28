@@ -51,16 +51,14 @@
       gap: 1rem;
     }
     .brand {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 0.7rem;
-      font-weight: 700;
-      color: var(--hmg-teal);
-      font-size: 1.15rem;
+      text-decoration: none;
     }
-    .brand svg {
-      width: 32px;
-      height: 32px;
+    .brand img {
+      height: 42px;
+      width: auto;
+      display: block;
     }
     .nav-links {
       display: flex;
@@ -242,10 +240,9 @@
 <body>
   <header>
     <div class="nav">
-      <div class="brand">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="8" fill="#007481"/><path d="M10 28h20M12 20h16M14 12h12" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
-        Hospital HMG
-      </div>
+      <a class="brand" href="/" aria-label="Inicio">
+        <img src="logo-hmg.jpg" alt="Hospital HMG Coyoacán" width="180" height="48" />
+      </a>
       <nav class="nav-links">
         <a href="#especialidades">Especialidades</a>
         <a href="#como-funciona">Cómo funciona</a>
