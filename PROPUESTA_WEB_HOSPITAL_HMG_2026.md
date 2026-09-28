@@ -529,10 +529,13 @@ No se dispone de un generador de imágenes directo en este entorno; por ello se 
 | Uso | Archivo | Modelo | Dimensiones |
 |---|---|---|---|
 | Hero homepage | `assets/img_hero_exterior.png` | OpenAI gpt-image-1-mini | 1536×1024 |
+| Hero alternativo (Together) | `assets/img_hero_exterior_together_flux2dev.png` | Together AI FLUX.2-dev | 1024×768 |
 | Atención médica humana | `assets/img_atencion_humana.png` | OpenAI gpt-image-1-mini | 1024×1536 |
+| Atención médica alternativa (Together) | `assets/img_atencion_humana_together.png` | Together AI FLUX.2-dev | 1024×768 |
 | Tecnología y precisión | `assets/img_tecnologia_precision.png` | OpenAI gpt-image-1-mini | 1536×1024 |
 | Equipo multidisciplinario | `assets/img_equipo_multidisciplinario.png` | OpenAI gpt-image-1-mini | 1536×1024 |
 | Bienestar y prevención | `assets/img_bienestar_prevencion.png` | OpenAI gpt-image-1-mini | 1536×1024 |
+| Bienestar alternativo (Together) | `assets/img_bienestar_prevencion_together.png` | Together AI FLUX.2-dev | 1024×768 |
 
 > Las imágenes fueron generadas con instrucciones que evitan texto legible, logos alterados, personas identificables y promesas de resultados médicos. Deben revisarse antes de su uso público.
 

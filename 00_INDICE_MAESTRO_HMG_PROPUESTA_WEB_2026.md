@@ -21,7 +21,7 @@
 | `assets/img_tecnologia_precision.png` | Tecnología médica e innovación. | Generado (OpenAI gpt-image-1-mini) |
 | `assets/img_equipo_multidisciplinario.png` | Equipo de profesionales de salud. | Generado (OpenAI gpt-image-1-mini) |
 | `assets/img_bienestar_prevencion.png` | Bienestar y atención preventiva. | Generado (OpenAI gpt-image-1-mini) |
-| MCP `together-image-gen` | Servidor MCP para generación de imágenes con Together AI (FLUX). | Configurado; prueba falló por credenciales/expiración |
+| MCP `together-image-gen` | Servidor MCP para generación de imágenes con Together AI (FLUX). | Configurado y operativo con key actualizada |
 | MCP `openai-image-gen` | Servidor MCP para generación de imágenes con OpenAI (DALL-E / gpt-image). | Configurado y operativo |
 
 ---
