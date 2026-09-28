@@ -71,7 +71,7 @@ hospitalhmg.com
 | Homepage estática | DEPLOY-VERIFICADO | https://hospitalhmg.com |
 | API pública LINA | DEPLOY-VERIFICADO | https://hospitalhmg.com/api/elevenlabs-public |
 | CRM interno | Operativo | https://crm.hospitalhmg.com/crm/login |
-| DNS A records | Creados en Route 53 | hospitalhmg.com / www → 44.247.163.1 |
+| DNS A records | Creados en Route 53 (TTL 60 s) | hospitalhmg.com / www → 44.247.163.1 |
 | Certificado SSL | Let's Encrypt activo | /etc/letsencrypt/live/hospitalhmg.com |
 
 ## 9. Próximos pasos
