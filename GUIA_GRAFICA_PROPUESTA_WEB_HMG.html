@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía Gráfica — Propuesta Web HMG</title>
+  <style>
+    :root {
+      --bg:#0b1020;
+      --bg-2:#11182e;
+      --bg-3:#162037;
+      --text:#e8eaf0;
+      --muted:#9fb1d3;
+      --accent:#3ddc97;
+      --accent-2:#5c9aff;
+      --accent-3:#ffb86c;
+      --info:#7ee3ff;
+      --danger:#ff6b6b;
+      --border:rgba(148,178,230,.18);
+      --radius:16px;
+      --font-body:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+      --font-head:Georgia,'Times New Roman',serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    a { color: var(--accent-2); }
+    .hero {
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+      background: radial-gradient(ellipse at top, var(--bg-3) 0%, var(--bg) 60%);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin: 0 0 1rem;
+    }
+    .hero p { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: 1.15rem; }
+    .badges { display: flex; gap: .5rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: .35rem;
+      padding: .35rem .75rem; border-radius: 999px; font-size: .8rem; font-weight: 600;
+      border: 1px solid var(--border);
+    }
+    .badge.evidence { background: rgba(61,220,151,.12); color: var(--accent); }
+    .badge.hypothesis { background: rgba(92,154,255,.12); color: var(--accent-2); }
+    .badge.speculation { background: rgba(255,184,108,.12); color: var(--accent-3); }
+    nav.toc {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(11,16,32,.92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: .75rem 1rem;
+      overflow-x: auto;
+    }
+    nav.toc ul { display: flex; gap: 1rem; list-style: none; margin: 0; padding: 0; white-space: nowrap; justify-content: center; }
+    nav.toc a { text-decoration: none; color: var(--muted); font-size: .9rem; }
+    nav.toc a:hover { color: var(--text); }
+    section {
+      max-width: 980px; margin: 0 auto; padding: 3rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    section h2 {
+      font-family: var(--font-head);
+      font-size: 1.9rem; margin-bottom: .75rem; color: var(--text);
+    }
+    section h3 { font-size: 1.3rem; color: var(--accent-2); margin-top: 2rem; }
+    .lead { color: var(--muted); font-size: 1.1rem; }
+    .card {
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.5rem; margin: 1.5rem 0;
+    }
+    .two-col {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;
+    }
+    figure.fig { margin: 1.5rem 0; }
+    figcaption { color: var(--muted); font-size: .9rem; margin-top: .5rem; }
+    .quote { border-left: 4px solid var(--accent); padding-left: 1rem; color: var(--muted); font-style: italic; }
+    .term-list { display: grid; gap: .75rem; }
+    .term { background: var(--bg-3); padding: .75rem 1rem; border-radius: 8px; }
+    .term strong { color: var(--accent); }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .95rem; }
+    th, td { padding: .75rem; border: 1px solid var(--border); text-align: left; }
+    th { background: var(--bg-3); color: var(--accent-2); }
+    .swatch { display: inline-block; width: 20px; height: 20px; border-radius: 4px; margin-right: .5rem; border: 1px solid var(--border); vertical-align: middle; }
+    .c-primary { background: #007481; }
+    .c-primary-light { background: #7EBEC5; }
+    .c-primary-dark { background: #005F6B; }
+    .c-accent { background: #2EA3F2; }
+    .c-text { background: #333333; }
+    .c-bg { background: #FFFFFF; border-color: #999999; }
+    footer { text-align: center; padding: 2rem 1rem; color: var(--muted); font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Propuesta Web Pública HMG</h1>
+    <p>Guía gráfica de la propuesta de sitio informativo para <strong>hospitalhmg.com</strong>: arquitectura, flujo del paciente, identidad de marca e integración con el agente LINA.</p>
+    <div class="badges">
+      <span class="badge evidence">Evidencia: benchmarking + CRM</span>
+      <span class="badge evidence">Evidencia: contrato de licencia</span>
+      <span class="badge hypothesis">Hipótesis: diseño propuesto</span>
+      <span class="badge speculation">Especulación: resultados futuros</span>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <ul>
+      <li><a href="#contexto">Contexto</a></li>
+      <li><a href="#conceptos">Conceptos</a></li>
+      <li><a href="#arquitectura">Arquitectura</a></li>
+      <li><a href="#workflow">Workflow del paciente</a></li>
+      <li><a href="#homepage">Homepage</a></li>
+      <li><a href="#marca">Marca HMG</a></li>
+      <li><a href="#lina">Agente LINA</a></li>
+      <li><a href="#glosario">Glosario</a></li>
+    </ul>
+  </nav>
+
+  <section id="contexto">
+    <h2>1. Contexto y problema</h2>
+    <p class="lead">HMG cuenta con una marca registrada y una red de más de 3,300 médicos, pero su presencia web pública no conecta directamente al paciente con el especialista. La nueva propuesta resuelve ese puente.</p>
+    <div class="two-col">
+      <div class="card">
+        <h3>Lo que tenemos</h3>
+        <ul>
+          <li><span class="badge evidence">Evidencia</span> 3,382 médicos en CRM; 2,517 credencializados.</li>
+          <li><span class="badge evidence">Evidencia</span> Signos distintivos HMG registrados ante el IMPI.</li>
+          <li><span class="badge evidence">Evidencia</span> Agente LINA basado en ElevenLabs con 24 tools.</li>
+          <li><span class="badge evidence">Evidencia</span> CRM existente en https://crm.hospitalhmg.com/crm/login.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Lo que resolvemos</h3>
+        <ul>
+          <li><span class="badge hypothesis">Hipótesis</span> Un paciente puede pasar de "tengo un síntoma" a "contacto con el médico" en menos de tres clics.</li>
+          <li><span class="badge hypothesis">Hipótesis</span> LINA reduce la fricción de navegación sin reemplazar al médico.</li>
+          <li><span class="badge hypothesis">Hipótesis</span> El botón de CRM se mantiene visible pero separado del flujo paciente.</li>
+        </ul>
+      </div>
+    </div>
+    <figure class="fig">
+      <svg viewBox="0 0 800 120" role="img" aria-label="Diagrama de brecha: paciente confundido, sitio antiguo estático, y propuesta conectada">
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#5c9aff"/>
+          </marker>
+        </defs>
+        <rect x="20" y="20" width="200" height="80" rx="12" fill="#162037" stroke="#3ddc97" stroke-width="2"/>
+        <text x="120" y="50" text-anchor="middle" fill="#e8eaf0" font-size="14">Paciente con síntoma</text>
+        <text x="120" y="75" text-anchor="middle" fill="#9fb1d3" font-size="11">No sabe con quién acudir</text>
+
+        <line x1="230" y1="60" x2="330" y2="60" stroke="#5c9aff" stroke-width="2" marker-end="url(#arrow)"/>
+        <text x="280" y="50" text-anchor="middle" fill="#9fb1d3" font-size="11">sitio antiguo</text>
+
+        <rect x="350" y="20" width="200" height="80" rx="12" fill="#162037" stroke="#ffb86c" stroke-width="2"/>
+        <text x="450" y="50" text-anchor="middle" fill="#e8eaf0" font-size="14">Sitio estático HMG</text>
+        <text x="450" y="75" text-anchor="middle" fill="#9fb1d3" font-size="11">Información, poca acción</text>
+
+        <line x1="560" y1="60" x2="660" y2="60" stroke="#5c9aff" stroke-width="2" marker-end="url(#arrow)"/>
+        <text x="610" y="50" text-anchor="middle" fill="#9fb1d3" font-size="11">propuesta</text>
+
+        <rect x="680" y="20" width="100" height="80" rx="12" fill="#162037" stroke="#3ddc97" stroke-width="2"/>
+        <text x="730" y="55" text-anchor="middle" fill="#e8eaf0" font-size="14">Contacto</text>
+        <text x="730" y="75" text-anchor="middle" fill="#9fb1d3" font-size="11">con médico</text>
+      </svg>
+      <figcaption>Figura 1. La brecha que la propuesta busca cerrar: de la información a la acción.</figcaption>
+    </figure>
+  </section>
+
+  <section id="conceptos">
+    <h2>2. Conceptos clave</h2>
+    <div class="term-list">
+      <div class="term"><strong>Patient navigation</strong> — Estrategia para guiar al paciente a través del sistema de salud, reduciendo barreras y mejorando el acceso a la atención adecuada.</div>
+      <div class="term"><strong>Triage conversacional</strong> — Clasificación inicial de necesidades mediante chat o voz, sin emitir diagnóstico, para derivar al canal correcto.</div>
+      <div class="term"><strong>Profesional independiente</strong> — Médico que presta servicios bajo su propia responsabilidad y usa los signos distintivos HMG mediante licencia.</div>
+      <div class="term"><strong>Acceso al CRM</strong> — Portal privado para médicos y personal autorizado, separado de la experiencia del paciente.</div>
+    </div>
+  </section>
+
+  <section id="arquitectura">
+    <h2>3. Arquitectura de información</h2>
+    <p class="lead">La estructura del sitio separa claramente a pacientes, médicos y personal interno, manteniendo el CTA principal visible.</p>
+    <figure class="fig">
+      <svg viewBox="0 0 900 420" role="img" aria-label="Mapa de arquitectura del sitio hospitalhmg.com">
+        <defs>
+          <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#5c9aff"/>
+          </marker>
+        </defs>
+        <rect x="350" y="20" width="200" height="60" rx="12" fill="#162037" stroke="#3ddc97" stroke-width="2"/>
+        <text x="450" y="45" text-anchor="middle" fill="#e8eaf0" font-size="16" font-weight="600">hospitalhmg.com</text>
+        <text x="450" y="65" text-anchor="middle" fill="#9fb1d3" font-size="11">Inicio</text>
+
+        <line x1="380" y1="80" x2="180" y2="150" stroke="#5c9aff" stroke-width="2" marker-end="url(#arrow2)"/>
+        <line x1="450" y1="80" x2="450" y2="150" stroke="#5c9aff" stroke-width="2" marker-end="url(#arrow2)"/>
+        <line x1="520" y1="80" x2="720" y2="150" stroke="#5c9aff" stroke-width="2" marker-end="url(#arrow2)"/>
+
+        <rect x="80" y="150" width="200" height="90" rx="12" fill="#162037" stroke="#5c9aff" stroke-width="2"/>
+        <text x="180" y="175" text-anchor="middle" fill="#e8eaf0" font-size="14" font-weight="600">Pacientes</text>
+        <text x="180" y="200" text-anchor="middle" fill="#9fb1d3" font-size="11">Encuentra médico</text>
+        <text x="180" y="218" text-anchor="middle" fill="#9fb1d3" font-size="11">Orientación LINA</text>
+
+        <rect x="350" y="150" width="200" height="90" rx="12" fill="#162037" stroke="#5c9aff" stroke-width="2"/>
+        <text x="450" y="175" text-anchor="middle" fill="#e8eaf0" font-size="14" font-weight="600">Contenido</text>
+        <text x="450" y="200" text-anchor="middle" fill="#9fb1d3" font-size="11">Especialidades</text>
+        <text x="450" y="218" text-anchor="middle" fill="#9fb1d3" font-size="11">Servicios · FAQs</text>
+
+        <rect x="620" y="150" width="200" height="90" rx="12" fill="#162037" stroke="#5c9aff" stroke-width="2"/>
+        <text x="720" y="175" text-anchor="middle" fill="#e8eaf0" font-size="14" font-weight="600">Médicos / Staff</text>
+        <text x="720" y="200" text-anchor="middle" fill="#9fb1d3" font-size="11">Beneficios</text>
+        <text x="720" y="218" text-anchor="middle" fill="#9fb1d3" font-size="11">Acceso al CRM</text>
+
+        <line x1="180" y1="240" x2="180" y2="320" stroke="#5c9aff" stroke-width="2" marker-end="url(#arrow2)"/>
+        <rect x="90" y="320" width="180" height="70" rx="12" fill="#162037" stroke="#3ddc97" stroke-width="2"/>
+        <text x="180" y="350" text-anchor="middle" fill="#e8eaf0" font-size="13">Directorio filtrable</text>
+        <text x="180" y="370" text-anchor="middle" fill="#9fb1d3" font-size="11">+ contacto directo</text>
+
+        <line x1="450" y1="240" x2="450" y2="320" stroke="#5c9aff" stroke-width="2" marker-end="url(#arrow2)"/>
+        <rect x="360" y="320" width="180" height="70" rx="12" fill="#162037" stroke="#3ddc97" stroke-width="2"/>
+        <text x="450" y="350" text-anchor="middle" fill="#e8eaf0" font-size="13">Páginas SEO</text>
+        <text x="450" y="370" text-anchor="middle" fill="#9fb1d3" font-size="11">por especialidad</text>
+
+        <line x1="720" y1="240" x2="720" y2="320" stroke="#5c9aff" stroke-width="2" marker-end="url(#arrow2)"/>
+        <rect x="630" y="320" width="180" height="70" rx="12" fill="#162037" stroke="#ffb86c" stroke-width="2"/>
+        <text x="720" y="350" text-anchor="middle" fill="#e8eaf0" font-size="13">CRM privado</text>
+        <text x="720" y="370" text-anchor="middle" fill="#9fb1d3" font-size="11">crm.hospitalhmg.com</text>
+      </svg>
+      <figcaption>Figura 2. Mapa de arquitectura del sitio: tres caminos claros para pacientes, contenido y médicos.</figcaption>
+    </figure>
+  </section>
+
+  <section id="workflow">
+    <h2>4. Workflow del paciente</h2>
+    <p class="lead">El flujo no es lineal: permite iniciar por síntoma, especialidad o médico, pero siempre pasa por un filtro de urgencia antes de orientar.</p>
+    <figure class="fig">
+      <svg viewBox="0 0 900 260" role="img" aria-label="Flujo del paciente desde síntoma hasta resolucion">
+        <defs>
+          <marker id="arrow3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#5c9aff"/>
+          </marker>
+        </defs>
+        <g transform="translate(0,30)">
+          <rect x="20" y="20" width="130" height="50" rx="8" fill="#162037" stroke="#3ddc97" stroke-width="2"/>
+          <text x="85" y="40" text-anchor="middle" fill="#e8eaf0" font-size="12">1. Síntoma /</text>
+          <text x="85" y="55" text-anchor="middle" fill="#e8eaf0" font-size="12">Especialidad</text>
+
+          <line x1="155" y1="45" x2="210" y2="45" stroke="#5c9aff" stroke-width="2" marker-end="url(#arrow3)"/>
+
+          <rect x="220" y="20" width="130" height="50" rx="8" fill="#162037" stroke="#ff6b6b" stroke-width="2"/>
+          <text x="285" y="40" text-anchor="middle" fill="#e8eaf0" font-size="12">2. Filtro de</text>
+          <text x="285" y="55" text-anchor="middle" fill="#e8eaf0" font-size="12">urgencia</text>
+
+          <line x1="355" y1="45" x2="410" y2="45" stroke="#5c9aff" stroke-width="2" marker-end="url(#arrow3)"/>
+
+          <rect x="420" y="20" width="130" height="50" rx="8" fill="#162037" stroke="#5c9aff" stroke-width="2"/>
+          <text x="485" y="40" text-anchor="middle" fill="#e8eaf0" font-size="12">3. Orientación</text>
+          <text x="485" y="55" text-anchor="middle" fill="#e8eaf0" font-size="12">LINA / Buscador</text>
+
+          <line x1="555" y1="45" x2="610" y2="45" stroke="#5c9aff" stroke-width="2" marker-end="url(#arrow3)"/>
+
+          <rect x="620" y="20" width="130" height="50" rx="8" fill="#162037" stroke="#5c9aff" stroke-width="2"/>
+          <text x="685" y="40" text-anchor="middle" fill="#e8eaf0" font-size="12">4. Selección</text>
+          <text x="685" y="55" text-anchor="middle" fill="#e8eaf0" font-size="12">de médico</text>
+
+          <line x1="755" y1="45" x2="810" y2="45" stroke="#5c9aff" stroke-width="2" marker-end="url(#arrow3)"/>
+
+          <rect x="820" y="20" width="60" height="50" rx="8" fill="#162037" stroke="#3ddc97" stroke-width="2"/>
+          <text x="850" y="42" text-anchor="middle" fill="#e8eaf0" font-size="12">5.</text>
+          <text x="850" y="55" text-anchor="middle" fill="#e8eaf0" font-size="12">Contacto</text>
+        </g>
+
+        <text x="285" y="130" text-anchor="middle" fill="#ff6b6b" font-size="12">Si hay señales de alarma</text>
+        <line x1="285" y1="105" x2="285" y2="145" stroke="#ff6b6b" stroke-width="2" stroke-dasharray="4"/>
+        <polygon points="285,155 275,145 295,145" fill="#ff6b6b"/>
+        <rect x="205" y="160" width="160" height="40" rx="8" fill="#162037" stroke="#ff6b6b" stroke-width="2"/>
+        <text x="285" y="185" text-anchor="middle" fill="#e8eaf0" font-size="13">Llama al 911 / Urgencias</text>
+      </svg>
+      <figcaption>Figura 3. Workflow de síntoma a contacto. El filtro de urgencia actúa como guardia de seguridad antes de cualquier orientación.</figcaption>
+    </figure>
+    <table>
+      <tr><th>Paso</th><th>Acción del usuario</th><th>Salida del sistema</th></tr>
+      <tr><td>1</td><td>Escribe síntoma, selecciona especialidad o busca médico.</td><td>Intención detectada.</td></tr>
+      <tr><td>2</td><td>Responde preguntas de filtro de urgencia (si aplica).</td><td>Si es emergencia: 911. Si no: continuar.</td></tr>
+      <tr><td>3</td><td>Recibe orientación sobre especialidad o ruta.</td><td>Sugerencia con lenguaje probabilístico.</td></tr>
+      <tr><td>4</td><td>Filtra y revisa perfiles de médicos.</td><td>Lista con datos de contacto verificados.</td></tr>
+      <tr><td>5</td><td>Contacta por teléfono, WhatsApp o agendamiento.</td><td>Confirmación y recordatorio.</td></tr>
+    </table>
+  </section>
+
+  <section id="homepage">
+    <h2>5. Propuesta de homepage</h2>
+    <p class="lead">La página de inicio se organiza en bloques de acción. Cada bloque responde a una intención del usuario.</p>
+    <figure class="fig">
+      <svg viewBox="0 0 800 500" role="img" aria-label="Wireframe de homepage de hospitalhmg.com">
+        <rect x="0" y="0" width="800" height="500" fill="#ffffff"/>
+        <!-- Header -->
+        <rect x="0" y="0" width="800" height="60" fill="#007481"/>
+        <text x="60" y="35" fill="#ffffff" font-size="16" font-weight="600">HMG Hospital Coyoacán</text>
+        <text x="420" y="35" fill="#ffffff" font-size="12">Médicos · Especialidades · LINA · Contacto</text>
+        <rect x="700" y="15" width="80" height="30" rx="6" fill="#ffffff"/>
+        <text x="740" y="35" text-anchor="middle" fill="#007481" font-size="11">Acceso CRM</text>
+
+        <!-- Hero -->
+        <rect x="0" y="60" width="800" height="160" fill="#e6f3f2"/>
+        <text x="60" y="110" fill="#005f6b" font-size="22" font-weight="600">Atención médica cerca de ti</text>
+        <text x="60" y="140" fill="#333333" font-size="14">Encuentra especialistas y contacta a profesionales independientes vinculados a HMG.</text>
+        <rect x="60" y="160" width="120" height="36" rx="6" fill="#007481"/>
+        <text x="120" y="183" text-anchor="middle" fill="#ffffff" font-size="12">Buscar médico</text>
+        <rect x="190" y="160" width="120" height="36" rx="6" fill="#2ea3f2"/>
+        <text x="250" y="183" text-anchor="middle" fill="#ffffff" font-size="12">Hablar con LINA</text>
+
+        <!-- Search -->
+        <rect x="60" y="240" width="680" height="50" rx="8" fill="#ffffff" stroke="#cccccc" stroke-width="1"/>
+        <text x="80" y="270" fill="#666666" font-size="14">Especialidad, síntoma o nombre del médico...</text>
+        <rect x="620" y="245" width="100" height="40" rx="6" fill="#007481"/>
+        <text x="670" y="270" text-anchor="middle" fill="#ffffff" font-size="13">Buscar</text>
+
+        <!-- Specialties -->
+        <text x="60" y="330" fill="#333333" font-size="16" font-weight="600">Especialidades destacadas</text>
+        <g fill="#f8fafa" stroke="#e5e5e5" stroke-width="1">
+          <rect x="60" y="350" width="140" height="60" rx="8"/>
+          <rect x="220" y="350" width="140" height="60" rx="8"/>
+          <rect x="380" y="350" width="140" height="60" rx="8"/>
+          <rect x="540" y="350" width="140" height="60" rx="8"/>
+        </g>
+        <text x="130" y="385" text-anchor="middle" fill="#333333" font-size="12">Ginecología</text>
+        <text x="290" y="385" text-anchor="middle" fill="#333333" font-size="12">Pediatría</text>
+        <text x="450" y="385" text-anchor="middle" fill="#333333" font-size="12">Cardiología</text>
+        <text x="610" y="385" text-anchor="middle" fill="#333333" font-size="12">Cirugía General</text>
+
+        <!-- Trust -->
+        <rect x="60" y="430" width="680" height="50" rx="8" fill="#f8fafa" stroke="#e5e5e5" stroke-width="1"/>
+        <text x="400" y="460" text-anchor="middle" fill="#666666" font-size="13">Profesionales independientes con información verificable · HMG · Cerca de ti, cerca de todos</text>
+      </svg>
+      <figcaption>Figura 4. Wireframe de homepage: header, hero, buscador, especialidades destacadas y mensaje de confianza.</figcaption>
+    </figure>
+  </section>
+
+  <section id="marca">
+    <h2>6. Identidad de marca HMG</h2>
+    <p class="lead">La paleta y el uso del logotipo provienen del análisis del sitio histórico y del contrato de licencia.</p>
+    <div class="two-col">
+      <div class="card">
+        <h3>Paleta digital</h3>
+        <p><span class="swatch c-primary"></span>Primary `#007481` — headers, CTAs</p>
+        <p><span class="swatch c-primary-light"></span>Primary Light `#7EBEC5` — fondos suaves</p>
+        <p><span class="swatch c-primary-dark"></span>Primary Dark `#005F6B` — texto sobre claro</p>
+        <p><span class="swatch c-accent"></span>Accent `#2EA3F2` — enlaces, botones secundarios</p>
+        <p><span class="swatch c-text"></span>Text `#333333` — cuerpo</p>
+        <p><span class="swatch c-bg"></span>Background `#FFFFFF`</p>
+      </div>
+      <div class="card">
+        <h3>Reglas del logotipo</h3>
+        <ul>
+          <li>Mínimo 120 px de ancho en web.</li>
+          <li>Espacio libre equivalente a la altura de la H.</li>
+          <li>Colores originales o tinta única.</li>
+          <li>No deformar, recortar ni rotar.</li>
+          <li>Datos del médico en bloque separado.</li>
+          <li>Incluir ® o M.R. según corresponda.</li>
+        </ul>
+      </div>
+    </div>
+    <figure class="fig">
+      <svg viewBox="0 0 800 200" role="img" aria-label="Ejemplo de aplicacion de marca en tarjeta medica">
+        <rect x="0" y="0" width="800" height="200" fill="#ffffff"/>
+        <rect x="40" y="30" width="720" height="140" rx="12" fill="#f8fafa" stroke="#e5e5e5" stroke-width="1"/>
+        <rect x="60" y="50" width="120" height="45" rx="6" fill="#007481"/>
+        <text x="120" y="78" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="600">HMG</text>
+        <text x="200" y="70" fill="#333333" font-size="16" font-weight="600">Dra. María López Herrera</text>
+        <text x="200" y="92" fill="#666666" font-size="13">Ginecología y Obstetricia</text>
+        <text x="200" y="112" fill="#666666" font-size="12">Consultorio 305, HMG Torre Médica</text>
+        <text x="200" y="132" fill="#666666" font-size="12">Tel. 55 1234 5678</text>
+        <text x="60" y="165" fill="#999999" font-size="10">Profesional independiente. Datos publicados bajo su responsabilidad.</text>
+      </svg>
+      <figcaption>Figura 5. Ejemplo de tarjeta médica: logotipo separado de los datos del profesional.</figcaption>
+    </figure>
+  </section>
+
+  <section id="lina">
+    <h2>7. Integración del agente LINA</h2>
+    <p class="lead">LINA actúa como capa de navegación y orientación, no como médico. Sus límites están definidos por seguridad y cumplimiento.</p>
+    <div class="two-col">
+      <div class="card">
+        <h3>Permitido</h3>
+        <ul>
+          <li>Buscar especialidades y médicos.</li>
+          <li>Explicar servicios y modalidades.</li>
+          <li>Guiar el proceso de contacto.</li>
+          <li>Capturar datos mínimos con consentimiento.</li>
+          <li>Transferir a un humano.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Prohibido</h3>
+        <ul>
+          <li>Diagnosticar o prescribir.</li>
+          <li>Interpretar estudios.</li>
+          <li>Prometer resultados o costos.</li>
+          <li>Solicitar datos bancarios o clínicos innecesarios.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="quote">"Soy LINA, el asistente virtual de HMG. No sustituyo a un profesional de la salud."</p>
+    <p><span class="badge speculation">Especulación</span> La integración del widget ElevenLabs en la zona pública requiere revisión de permisos y consentimiento antes del lanzamiento.</p>
+  </section>
+
+  <section id="glosario">
+    <h2>8. Glosario visual</h2>
+    <div class="term-list">
+      <div class="term"><strong>CTA</strong> — Call to Action: botón o enlace que invita al usuario a realizar una acción.</div>
+      <div class="term"><strong>CRM</strong> — Customer Relationship Management; sistema interno de HMG para médicos y personal.</div>
+      <div class="term"><strong>IMPI</strong> — Instituto Mexicano de la Propiedad Industrial; donde HMG registra sus signos distintivos.</div>
+      <div class="term"><strong>SEO</strong> — Optimización para motores de búsqueda.</div>
+      <div class="term"><strong>WCAG</strong> — Pautas de accesibilidad web.</div>
+      <div class="term"><strong>Patient Journey</strong> — Recorrido del paciente desde la necesidad hasta la resolución.</div>
+      <div class="term"><strong>Triage</strong> — Clasificación inicial de la urgencia o necesidad de atención.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Guía gráfica generada el 2026-09-27 como parte de la Propuesta Web Pública HMG 2026.</p>
+    <p>Fuentes: documento maestro <code>PROPUESTA_WEB_HOSPITAL_HMG_2026.md</code>, benchmarking de Mayo Clinic, Cleveland Clinic, Intermountain Health, Hospital Angeles, Centro Médico ABC, Médica Sur y sitio histórico HMG.</p>
+  </footer>
+</body>
+</html>
