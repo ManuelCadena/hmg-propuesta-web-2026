@@ -322,6 +322,7 @@
     }
     .lina-header-title { display: flex; align-items: center; gap: 0.65rem; }
     .lina-header h3 { margin: 0; font-size: 1.05rem; font-weight: 600; }
+    .lina-header-title small { display: block; opacity: 0.85; font-size: 0.78rem; font-weight: 400; }
     .lina-header-actions { display: flex; gap: 0.5rem; align-items: center; }
     .lina-header-btn {
       background: rgba(255,255,255,0.18);
@@ -336,6 +337,7 @@
     }
     .lina-header-btn:hover { background: rgba(255,255,255,0.28); }
     .lina-header-btn.emergency { background: rgba(255,255,255,0.95); color: #b42318; border-color: #fff; }
+    .lina-header-btn.active { background: rgba(255,255,255,0.95); color: var(--hmg-teal); border-color: #fff; }
     .lina-status {
       width: 10px;
       height: 10px;
@@ -604,10 +606,14 @@
       <div class="lina-header">
         <div class="lina-header-title">
           <span class="lina-status offline" id="lina-status" aria-label="Desconectado"></span>
-          <h3>LINA — Asistente Virtual HMG</h3>
+          <div>
+            <h3>LINA — Asistente Virtual HMG</h3>
+            <small id="lina-status-text">Desconectado</small>
+          </div>
         </div>
         <div class="lina-header-actions">
           <button type="button" class="lina-header-btn emergency" id="lina-emergency" title="En emergencias llama al 911">Emergencia</button>
+          <button type="button" class="lina-header-btn" id="lina-voice" title="Activar voz de LINA">Activar voz</button>
           <button type="button" class="lina-header-btn" id="lina-new" title="Nueva conversación">Nueva</button>
         </div>
       </div>
@@ -845,9 +851,11 @@
       const linaMic = document.getElementById('lina-mic');
       const linaMessages = document.getElementById('lina-messages');
       const linaStatus = document.getElementById('lina-status');
+      const linaStatusText = document.getElementById('lina-status-text');
       const linaTyping = document.getElementById('lina-typing');
       const linaNew = document.getElementById('lina-new');
       const linaEmergency = document.getElementById('lina-emergency');
+      const linaVoice = document.getElementById('lina-voice');
       const linaCall = document.getElementById('lina-call');
 
       let ws = null;
@@ -857,7 +865,8 @@
       let currentAudioBubble = null;
       let currentAudioChunks = [];
       let contactPhone = '';
-      let voiceEnabled = true;
+      let voiceEnabled = false;
+      let hasShownStreaming = false;
 
       // --- audio playback (ElevenLabs PCM 16 kHz mono) ---
       let audioCtx = null;
@@ -891,7 +900,7 @@
       }
 
       function queueAudio(chunks) {
-        if (!chunks || !chunks.length) return;
+        if (!voiceEnabled || !chunks || !chunks.length) return;
         ensureAudio();
         audioQueue.push(buildAudioBuffer(chunks));
         if (!isPlayingAudio) playNextAudio();
@@ -948,9 +957,11 @@
         if (connected) {
           linaStatus.classList.remove('offline');
           linaStatus.setAttribute('aria-label', 'Conectado');
+          linaStatusText.textContent = 'En línea';
         } else {
           linaStatus.classList.add('offline');
           linaStatus.setAttribute('aria-label', 'Desconectado');
+          linaStatusText.textContent = 'Desconectado';
         }
       }
 
@@ -965,27 +976,30 @@
       function connectLina() {
         if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return;
         updateStatus(false);
+        linaStatusText.textContent = 'Conectando...';
+        console.log('[LINA] connecting...');
         try {
           ws = new WebSocket(`wss://api.elevenlabs.io/v1/convai/conversation?agent_id=${AGENT_ID}`);
           ws.onopen = () => {
             updateStatus(true);
+            console.log('[LINA] connected');
             sendWs({ type: 'conversation_initiation_client_data' });
           };
           ws.onmessage = (event) => {
             try {
               const data = JSON.parse(event.data);
+              console.log('[LINA] msg', data.type);
               if (data.type === 'ping') {
                 const delay = data.ping_event?.ping_ms ?? 0;
                 setTimeout(() => sendWs({ type: 'pong', event_id: data.ping_event?.event_id }), delay);
                 return;
               }
               if (data.type === 'audio') {
-                ensureAudio();
                 const b64 = data.audio_event?.audio_base_64;
                 if (!b64) return;
                 currentAudioChunks.push(b64);
                 if (currentAudioBubble) currentAudioBubble.dataset.audio = JSON.stringify(currentAudioChunks);
-                if (voiceEnabled) queueAudio([b64]);
+                queueAudio([b64]);
                 return;
               }
               if (data.type === 'interruption') {
@@ -995,6 +1009,7 @@
               if (data.type === 'agent_chat_response_part') {
                 const part = data.text_response_part;
                 if (!part || !part.text) return;
+                hasShownStreaming = true;
                 if (part.type === 'start') {
                   setTyping(false);
                   currentAssistantText = '';
@@ -1014,7 +1029,7 @@
               if (data.type === 'agent_response') {
                 setTyping(false);
                 const text = data.agent_response_event?.agent_response || '';
-                if (text) {
+                if (text && !hasShownStreaming) {
                   stopAudio();
                   currentAudioChunks = [];
                   const bubble = addMessage(text, 'lina');
@@ -1029,22 +1044,32 @@
                 linaMessages.scrollTop = linaMessages.scrollHeight;
                 return;
               }
-            } catch (err) { console.error('LINA message parse error', err); }
+            } catch (err) { console.error('[LINA] parse error', err); }
           };
-          ws.onerror = () => { updateStatus(false); };
-          ws.onclose = () => {
+          ws.onerror = (err) => {
+            console.error('[LINA] ws error', err);
             updateStatus(false);
+            linaStatusText.textContent = 'Error de conexión';
+          };
+          ws.onclose = () => {
+            console.log('[LINA] ws closed');
+            updateStatus(false);
+            linaStatusText.textContent = 'Desconectado';
             ws = null;
             if (reconnectTimer) clearTimeout(reconnectTimer);
             reconnectTimer = setTimeout(connectLina, 5000);
           };
-        } catch (err) { console.error(err); updateStatus(false); }
+        } catch (err) {
+          console.error('[LINA] connection error', err);
+          updateStatus(false);
+          linaStatusText.textContent = 'Error de conexión';
+        }
       }
 
       function sendLinaMessage(text) {
         const t = text.trim();
         if (!t) return;
-        ensureAudio();
+        hasShownStreaming = false;
         stopAudio();
         connectLina();
         addMessage(t, 'user');
@@ -1052,9 +1077,15 @@
         setTyping(true);
         let attempts = 0;
         function trySend() {
-          if (sendWs({ type: 'user_message', text: t, source_medium: 'text' })) return;
-          if (++attempts < 20) setTimeout(trySend, 250);
-          else { setTyping(false); addMessage('No pude conectar con LINA. Intenta de nuevo en un momento.', 'lina', true); }
+          if (sendWs({ type: 'user_message', text: t, source_medium: 'text' })) {
+            console.log('[LINA] sent user_message');
+            return;
+          }
+          if (++attempts < 25) setTimeout(trySend, 250);
+          else {
+            setTyping(false);
+            addMessage('No pude conectar con LINA. Intenta recargar la página o contacta a recepción.', 'lina', true);
+          }
         }
         trySend();
       }
@@ -1098,6 +1129,21 @@
         } catch (e) { console.error(e); linaMic.classList.remove('active'); }
       });
 
+      linaVoice.addEventListener('click', () => {
+        voiceEnabled = !voiceEnabled;
+        if (voiceEnabled) {
+          ensureAudio();
+          linaVoice.textContent = 'Voz activada';
+          linaVoice.classList.add('active');
+          linaVoice.title = 'Desactivar voz de LINA';
+        } else {
+          linaVoice.textContent = 'Activar voz';
+          linaVoice.classList.remove('active');
+          linaVoice.title = 'Activar voz de LINA';
+          stopAudio();
+        }
+      });
+
       linaNew.addEventListener('click', () => {
         stopAudio();
         if (ws) { ws.close(); ws = null; }
@@ -1131,6 +1177,10 @@
           }
         } catch (e) { console.log('No se pudo cargar teléfono de recepción', e); }
       })();
+
+      const linaObserver = new IntersectionObserver((entries) => { if (entries.some(e => e.isIntersecting)) { connectLina(); linaObserver.disconnect(); } }, { threshold: 0.1 });
+      linaObserver.observe(document.getElementById('lina'));
+    })();
 
       const linaObserver = new IntersectionObserver((entries) => { if (entries.some(e => e.isIntersecting)) { connectLina(); linaObserver.disconnect(); } }, { threshold: 0.1 });
       linaObserver.observe(document.getElementById('lina'));
