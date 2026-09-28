@@ -105,6 +105,50 @@
   footer { text-align:center; color:var(--muted); padding:2.5rem 1.5rem; font-size:0.88rem; border-top:1px solid rgba(0,116,129,0.08); }
   footer a { color:var(--hmg-teal); }
 
+  /* LINA-Trasplantes chat widget (adaptado de hospitalhmg-homepage/index.html) */
+  .lina-chat-section { background:var(--surface); }
+  .lina-chat { max-width:780px; margin:0 auto; height:520px; border-radius:22px; background:#fff; box-shadow:var(--shadow); border:1px solid rgba(0,116,129,0.1); display:flex; flex-direction:column; overflow:hidden; }
+  .lina-header { background:linear-gradient(90deg, var(--hmg-teal), var(--hmg-teal-light)); color:#fff; padding:0.85rem 1.1rem; display:flex; align-items:center; justify-content:space-between; gap:0.75rem; flex-wrap:wrap; }
+  .lina-header-title { display:flex; align-items:center; gap:0.65rem; }
+  .lina-header h3 { margin:0; font-size:1.05rem; font-weight:600; }
+  .lina-header-title small { display:block; opacity:0.85; font-size:0.78rem; font-weight:400; }
+  .lina-header-actions { display:flex; gap:0.5rem; align-items:center; }
+  .lina-header-btn { background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.35); color:#fff; border-radius:999px; padding:0.35rem 0.75rem; font-size:0.82rem; font-weight:600; cursor:pointer; transition:background .15s ease; }
+  .lina-header-btn:hover { background:rgba(255,255,255,0.28); }
+  .lina-header-btn.emergency { background:rgba(255,255,255,0.95); color:#b42318; border-color:#fff; }
+  .lina-header-btn.active { background:rgba(255,255,255,0.95); color:var(--hmg-teal); border-color:#fff; }
+  .lina-status { width:10px; height:10px; border-radius:50%; background:#4ade80; flex-shrink:0; }
+  .lina-status.offline { background:#9ca3af; }
+  .lina-messages { flex:1; overflow-y:auto; padding:1.25rem; display:flex; flex-direction:column; gap:0.8rem; background:#f9fafb; }
+  .lina-message { max-width:82%; padding:0.85rem 1.1rem; border-radius:18px; line-height:1.5; font-size:0.96rem; word-wrap:break-word; }
+  .lina-message.user { align-self:flex-end; background:var(--hmg-teal); color:#fff; border-bottom-right-radius:4px; }
+  .lina-message.lina { align-self:flex-start; background:#fff; color:var(--text); border:1px solid rgba(0,116,129,0.1); border-bottom-left-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,0.04); }
+  .lina-message.error { background:#fff0f0; color:#b42318; border:1px solid #ffcfcf; align-self:flex-start; }
+  .lina-message p { margin:0 0 0.4rem; }
+  .lina-message p:last-child { margin-bottom:0; }
+  .lina-suggestions { display:flex; flex-wrap:wrap; gap:0.45rem; margin-top:0.5rem; }
+  .lina-chip { background:rgba(0,116,129,0.08); color:var(--hmg-teal-dark); border:none; border-radius:999px; padding:0.35rem 0.8rem; font-size:0.85rem; font-weight:500; cursor:pointer; font-family:inherit; }
+  .lina-chip:hover { background:rgba(0,116,129,0.16); }
+  .lina-actions { display:flex; gap:0.5rem; margin-top:0.5rem; flex-wrap:wrap; }
+  .lina-actions button { background:transparent; border:1px solid rgba(0,116,129,0.2); color:var(--hmg-teal-dark); border-radius:999px; padding:0.25rem 0.65rem; font-size:0.8rem; cursor:pointer; font-family:inherit; }
+  .lina-actions button:hover { background:rgba(0,116,129,0.06); }
+  .lina-typing-indicator { display:flex; align-items:center; gap:0.35rem; align-self:flex-start; color:var(--muted); font-size:0.9rem; padding-left:0.2rem; }
+  .lina-typing-indicator span { width:6px; height:6px; border-radius:50%; background:var(--hmg-teal); animation:lina-bounce 1.2s infinite ease-in-out; }
+  .lina-typing-indicator span:nth-child(2) { animation-delay:0.15s; }
+  .lina-typing-indicator span:nth-child(3) { animation-delay:0.3s; }
+  @keyframes lina-bounce { 0%, 80%, 100% { transform:translateY(0); } 40% { transform:translateY(-5px); } }
+  .lina-call-link { background:none; border:none; color:var(--hmg-teal); font-size:inherit; text-decoration:underline; cursor:pointer; padding:0; }
+  .lina-input-area { border-top:1px solid #eef2f3; padding:0.85rem 1rem; background:#fff; display:flex; gap:0.55rem; align-items:center; }
+  .lina-input-area input { flex:1; border:1px solid rgba(0,116,129,0.18); border-radius:999px; padding:0.75rem 1rem; font-size:0.95rem; font-family:inherit; outline:none; }
+  .lina-input-area input:focus { border-color:var(--hmg-teal); }
+  .lina-input-area button { border:none; border-radius:50%; width:42px; height:42px; display:flex; align-items:center; justify-content:center; cursor:pointer; background:var(--hmg-teal); color:#fff; font-size:1.05rem; flex-shrink:0; transition:transform .12s ease, opacity .12s ease; }
+  .lina-input-area button:hover { transform:translateY(-1px); }
+  .lina-input-area button:disabled { opacity:0.45; cursor:not-allowed; transform:none; }
+  .lina-input-area .mic { background:#fff; color:var(--hmg-teal); border:1px solid rgba(0,116,129,0.2); }
+  .lina-input-area .mic.active { background:var(--hmg-teal); color:#fff; }
+  .hidden { display:none !important; }
+  .lina-typing { font-style:italic; color:var(--muted); font-size:0.9rem; padding:0.5rem 1rem; }
+
   @media (max-width:640px) {
     .nav-links { display:none; }
   }
@@ -124,6 +168,7 @@
       <a href="#evaluacion">Evaluación</a>
       <a href="#riesgos">Riesgos</a>
       <a href="#evidencia">Evidencia</a>
+      <a href="#lina">LINA</a>
       <a href="#faq">Preguntas</a>
       <a class="btn btn-primary" href="#contacto">Solicitar orientación</a>
     </nav>
@@ -415,26 +460,470 @@
   </div>
 </section>
 
+<section id="lina" class="lina-chat-section">
+  <h2 class="section-title">Habla con LINA-Trasplantes</h2>
+  <p class="section-subtitle">Asistente virtual especializado en orientación sobre el programa. No evalúa elegibilidad clínica ni promete disponibilidad de donador, órgano o resultado.</p>
+  <div class="lina-chat" role="region" aria-label="Chat con LINA-Trasplantes">
+    <div class="lina-header">
+      <div class="lina-header-title">
+        <span class="lina-status offline" id="lina-status" aria-label="Desconectado"></span>
+        <div>
+          <h3>LINA-Trasplantes</h3>
+          <small id="lina-status-text">Desconectado</small>
+        </div>
+      </div>
+      <div class="lina-header-actions">
+        <button type="button" class="lina-header-btn emergency" id="lina-emergency" title="En emergencias llama al 911">Emergencia</button>
+        <button type="button" class="lina-header-btn" id="lina-voice" title="Activar voz de LINA">Activar voz</button>
+        <button type="button" class="lina-header-btn" id="lina-new" title="Nueva conversación">Nueva</button>
+      </div>
+    </div>
+    <div class="lina-messages" id="lina-messages" aria-live="polite" aria-atomic="false">
+      <div class="lina-typing" id="lina-connecting">Conectando con LINA-Trasplantes...</div>
+    </div>
+    <div class="lina-typing-indicator hidden" id="lina-typing" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+    <form class="lina-input-area" id="lina-form">
+      <button type="button" class="mic" id="lina-mic" title="Hablar" aria-label="Hablar">🎤</button>
+      <input type="text" id="lina-input" placeholder="Escribe tu pregunta..." autocomplete="off" aria-label="Mensaje para LINA-Trasplantes" />
+      <button type="submit" id="lina-send" title="Enviar" aria-label="Enviar">➤</button>
+    </form>
+  </div>
+  <div class="lina-suggestions" aria-label="Sugerencias" id="lina-suggestions">
+    <button class="lina-chip" type="button">¿Qué es un donador vivo a vivo?</button>
+    <button class="lina-chip" type="button">¿Cómo es la evaluación del donador?</button>
+    <button class="lina-chip" type="button">¿Cuáles son los riesgos?</button>
+    <button class="lina-chip" type="button">¿Cómo empiezo el proceso?</button>
+  </div>
+  <p class="lina-legal">LINA-Trasplantes no diagnostica, no evalúa elegibilidad ni promete disponibilidad de donador u órgano. Emergencias: llama al 911. <button type="button" id="lina-call" class="lina-call-link">Llamar a recepción</button>.</p>
+</section>
+
 <section class="alt" id="contacto">
   <h2 class="section-title">Solicitar orientación inicial</h2>
   <p class="section-subtitle">Un coordinador humano te contactará. No se solicita expediente clínico completo en este primer formulario.</p>
-  <form class="contact-form" onsubmit="event.preventDefault(); document.getElementById('form-status').textContent='Gracias, un coordinador te contactará pronto. (Formulario de demostración — sin backend conectado aún.)';">
-    <label>Nombre del adulto responsable<input type="text" required /></label>
-    <label>Teléfono<input type="tel" required /></label>
-    <label>Correo electrónico<input type="email" /></label>
-    <label>Edad aproximada del paciente<input type="number" min="0" max="17" /></label>
-    <label>Estado de residencia<input type="text" /></label>
+  <form class="contact-form" id="transplant-contact-form">
+    <label>Nombre del adulto responsable<input type="text" name="guardian_name" required /></label>
+    <label>Teléfono<input type="tel" name="phone" required /></label>
+    <label>Correo electrónico<input type="email" name="email" /></label>
+    <label>Edad aproximada del paciente<input type="number" name="patient_age" min="0" max="17" /></label>
+    <label>Estado de residencia<input type="text" name="state" /></label>
     <label>¿Existe un posible donador adulto?
-      <select><option>No sabe</option><option>Sí</option><option>No</option></select>
+      <select name="has_potential_donor"><option>No sabe</option><option>Sí</option><option>No</option></select>
     </label>
     <label>Tipo de cobertura
-      <select><option>No sabe</option><option>Aseguradora privada</option><option>Pago privado</option></select>
+      <select name="coverage_type"><option>No sabe</option><option>Aseguradora privada</option><option>Pago privado</option></select>
     </label>
-    <label class="full">Mensaje (opcional — no incluyas información clínica sensible)<textarea rows="3"></textarea></label>
-    <label class="full consent"><input type="checkbox" required /> Acepto ser contactado y he leído el aviso de privacidad.</label>
-    <button class="btn btn-primary full" type="submit">Enviar solicitud</button>
+    <label class="full">Mensaje (opcional — no incluyas información clínica sensible)<textarea name="message" rows="3"></textarea></label>
+    <label class="full consent"><input type="checkbox" name="consent" required /> Acepto ser contactado y he leído el aviso de privacidad.</label>
+    <button class="btn btn-primary full" type="submit" id="transplant-contact-submit">Enviar solicitud</button>
   </form>
   <p id="form-status" class="status-msg"></p>
+  <script>
+    // ------------------ LINA-Trasplantes custom chat ------------------
+    (function () {
+      const AGENT_ID = 'agent_4601m3k849hjfx0tyns8whp5sdv3';
+      const API_BASE = '/api/elevenlabs-public';
+      const linaForm = document.getElementById('lina-form');
+      const linaInput = document.getElementById('lina-input');
+      const linaMic = document.getElementById('lina-mic');
+      const linaMessages = document.getElementById('lina-messages');
+      const linaStatus = document.getElementById('lina-status');
+      const linaStatusText = document.getElementById('lina-status-text');
+      const linaTyping = document.getElementById('lina-typing');
+      const linaNew = document.getElementById('lina-new');
+      const linaEmergency = document.getElementById('lina-emergency');
+      const linaVoice = document.getElementById('lina-voice');
+      const linaCall = document.getElementById('lina-call');
+
+      let ws = null;
+      let reconnectTimer = null;
+      let currentAssistantBubble = null;
+      let currentAssistantText = '';
+      let currentAudioBubble = null;
+      let currentAudioChunks = [];
+      let contactPhone = '';
+      let voiceEnabled = false;
+      let hasShownStreaming = false;
+      let reconnectCount = 0;
+      const MAX_RECONNECT = 10;
+
+      let currentAudio = null;
+      let isAudioUnlocked = false;
+
+      function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+      }
+
+      function base64ToUint8Array(b64) {
+        const raw = atob(b64);
+        const out = new Uint8Array(raw.length);
+        for (let i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+        return out;
+      }
+
+      function buildWav(pcm, sampleRate, channels, bitsPerSample) {
+        const byteRate = sampleRate * channels * bitsPerSample / 8;
+        const blockAlign = channels * bitsPerSample / 8;
+        const header = new Uint8Array(44);
+        const view = new DataView(header.buffer);
+        function writeStr(off, str) { for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i)); }
+        writeStr(0, 'RIFF');
+        view.setUint32(4, 36 + pcm.length, true);
+        writeStr(8, 'WAVE');
+        writeStr(12, 'fmt ');
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true);
+        view.setUint16(22, channels, true);
+        view.setUint32(24, sampleRate, true);
+        view.setUint32(28, byteRate, true);
+        view.setUint16(32, blockAlign, true);
+        view.setUint16(34, bitsPerSample, true);
+        writeStr(36, 'data');
+        view.setUint32(40, pcm.length, true);
+        const wav = new Uint8Array(header.length + pcm.length);
+        wav.set(header, 0);
+        wav.set(pcm, header.length);
+        return wav;
+      }
+
+      function unlockAudio() {
+        if (isAudioUnlocked) return;
+        const silent = new Uint8Array([82,73,70,70,56,0,0,0,87,65,86,69,102,109,116,32,16,0,0,0,1,0,1,0,128,62,0,0,0,125,0,0,2,0,16,0,100,97,116,97,2,0,0,0,0,0]);
+        const audio = new Audio(URL.createObjectURL(new Blob([silent], { type: 'audio/wav' })));
+        audio.play().then(() => { isAudioUnlocked = true; }).catch(() => {});
+      }
+
+      function playAudioChunks(chunks) {
+        if (!voiceEnabled || !chunks || !chunks.length) return;
+        let total = 0;
+        const parts = chunks.map(b64 => { const p = base64ToUint8Array(b64); total += p.length; return p; });
+        const pcm = new Uint8Array(total);
+        let offset = 0;
+        parts.forEach(p => { pcm.set(p, offset); offset += p.length; });
+        const wav = buildWav(pcm, 16000, 1, 16);
+        const blob = new Blob([wav], { type: 'audio/wav' });
+        const url = URL.createObjectURL(blob);
+        if (currentAudio) { currentAudio.pause(); currentAudio.src = ''; }
+        currentAudio = new Audio(url);
+        currentAudio.play().then(() => {
+          currentAudio.onended = () => { URL.revokeObjectURL(url); currentAudio = null; };
+        }).catch(err => { console.log('[LINA-Trasplantes] audio play failed', err); URL.revokeObjectURL(url); });
+      }
+
+      function stopAudio() {
+        if (currentAudio) { currentAudio.pause(); currentAudio.src = ''; currentAudio = null; }
+      }
+
+      function formatLinaText(text) {
+        let html = escapeHtml(text);
+        html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        html = html.replace(/(\b\d{2}\s+\d{2,4}\s+\d{2,4}\s+\d{2,4}\b)/g, '<a href="tel:$1" class="lina-phone">$1</a>');
+        const lines = html.split('\n');
+        const parts = [];
+        let inList = false;
+        lines.forEach(line => {
+          const trimmed = line.trim();
+          if (trimmed.startsWith('- ')) {
+            if (!inList) { parts.push('<ul>'); inList = true; }
+            parts.push('<li>' + trimmed.slice(2) + '</li>');
+          } else {
+            if (inList) { parts.push('</ul>'); inList = false; }
+            parts.push(line);
+          }
+        });
+        if (inList) parts.push('</ul>');
+        return parts.map(p => p.startsWith('<ul>') || p.startsWith('</ul>') || p.startsWith('<li>') ? p : p ? p + '<br>' : p).join('');
+      }
+
+      function addMessage(text, role, isError = false) {
+        const div = document.createElement('div');
+        div.className = `lina-message ${role}${isError ? ' error' : ''}`;
+        const p = document.createElement('p');
+        p.innerHTML = role === 'lina' && !isError ? formatLinaText(text) : escapeHtml(text).replace(/\n/g, '<br>');
+        div.appendChild(p);
+        if (role === 'lina' && !isError) {
+          const actions = document.createElement('div');
+          actions.className = 'lina-actions';
+          const speakBtn = document.createElement('button');
+          speakBtn.type = 'button';
+          speakBtn.textContent = 'Escuchar';
+          speakBtn.addEventListener('click', () => {
+            const chunks = div.dataset.audio ? JSON.parse(div.dataset.audio) : [];
+            if (chunks.length) playAudioChunks(chunks);
+          });
+          const stopBtn = document.createElement('button');
+          stopBtn.type = 'button';
+          stopBtn.textContent = 'Detener';
+          stopBtn.addEventListener('click', stopAudio);
+          actions.appendChild(speakBtn);
+          actions.appendChild(stopBtn);
+          div.appendChild(actions);
+        }
+        linaMessages.appendChild(div);
+        linaMessages.scrollTop = linaMessages.scrollHeight;
+        return div;
+      }
+
+      function setTyping(show) { linaTyping.classList.toggle('hidden', !show); }
+
+      function updateStatus(connected) {
+        if (connected) {
+          linaStatus.classList.remove('offline');
+          linaStatus.setAttribute('aria-label', 'Conectado');
+          linaStatusText.textContent = 'En línea';
+        } else {
+          linaStatus.classList.add('offline');
+          linaStatus.setAttribute('aria-label', 'Desconectado');
+          linaStatusText.textContent = 'Desconectado';
+        }
+      }
+
+      function sendWs(msg) {
+        if (ws && ws.readyState === WebSocket.OPEN) { ws.send(JSON.stringify(msg)); return true; }
+        return false;
+      }
+
+      function clearConnecting() {
+        const el = document.getElementById('lina-connecting');
+        if (el) el.remove();
+      }
+
+      function connectLina() {
+        if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return;
+        if (reconnectCount >= MAX_RECONNECT) {
+          updateStatus(false);
+          linaStatusText.textContent = 'No se pudo reconectar';
+          return;
+        }
+        updateStatus(false);
+        linaStatusText.textContent = 'Conectando...';
+        try {
+          ws = new WebSocket(`wss://api.elevenlabs.io/v1/convai/conversation?agent_id=${AGENT_ID}`);
+          ws.onopen = () => {
+            reconnectCount = 0;
+            updateStatus(true);
+            sendWs({ type: 'conversation_initiation_client_data' });
+          };
+          ws.onmessage = (event) => {
+            try {
+              const data = JSON.parse(event.data);
+              if (data.type === 'ping') {
+                const delay = data.ping_event?.ping_ms ?? 0;
+                setTimeout(() => sendWs({ type: 'pong', event_id: data.ping_event?.event_id }), delay);
+                return;
+              }
+              if (data.type === 'audio') {
+                const b64 = data.audio_event?.audio_base_64;
+                if (!b64) return;
+                currentAudioChunks.push(b64);
+                if (currentAudioBubble) currentAudioBubble.dataset.audio = JSON.stringify(currentAudioChunks);
+                return;
+              }
+              if (data.type === 'interruption') { stopAudio(); return; }
+              if (data.type === 'agent_chat_response_part') {
+                const part = data.text_response_part;
+                if (!part || !part.text) return;
+                hasShownStreaming = true;
+                if (part.type === 'start') {
+                  clearConnecting();
+                  setTyping(false);
+                  currentAssistantText = '';
+                  currentAudioChunks = [];
+                  currentAssistantBubble = addMessage('', 'lina');
+                  currentAudioBubble = currentAssistantBubble;
+                } else if (part.type === 'delta' && currentAssistantBubble) {
+                  currentAssistantText += part.text;
+                  const para = currentAssistantBubble.querySelector('p');
+                  para.textContent += part.text;
+                  linaMessages.scrollTop = linaMessages.scrollHeight;
+                } else if (part.type === 'stop') {
+                  if (currentAudioBubble && currentAudioChunks.length) {
+                    currentAudioBubble.dataset.audio = JSON.stringify(currentAudioChunks);
+                    playAudioChunks(currentAudioChunks);
+                  }
+                  currentAssistantBubble = null;
+                  currentAudioBubble = null;
+                }
+                return;
+              }
+              if (data.type === 'agent_response') {
+                setTyping(false);
+                const text = data.agent_response_event?.agent_response || '';
+                if (text && !hasShownStreaming) {
+                  clearConnecting();
+                  stopAudio();
+                  const bubble = addMessage(text, 'lina');
+                  currentAudioBubble = bubble;
+                  if (currentAudioChunks.length) {
+                    currentAudioBubble.dataset.audio = JSON.stringify(currentAudioChunks);
+                    playAudioChunks(currentAudioChunks);
+                  }
+                }
+                return;
+              }
+              if (data.type === 'agent_response_correction' && currentAssistantBubble) {
+                const corrected = data.agent_response_correction_event?.corrected_agent_response || '';
+                currentAssistantText = corrected;
+                currentAssistantBubble.querySelector('p').innerHTML = escapeHtml(corrected).replace(/\n/g, '<br>');
+                linaMessages.scrollTop = linaMessages.scrollHeight;
+                return;
+              }
+            } catch (err) { console.error('[LINA-Trasplantes] parse error', err); }
+          };
+          ws.onerror = (err) => {
+            console.error('[LINA-Trasplantes] ws error', err);
+            updateStatus(false);
+            linaStatusText.textContent = 'Error de conexión';
+          };
+          ws.onclose = () => {
+            updateStatus(false);
+            linaStatusText.textContent = 'Desconectado';
+            ws = null;
+            reconnectCount++;
+            if (reconnectCount <= MAX_RECONNECT) {
+              if (reconnectTimer) clearTimeout(reconnectTimer);
+              reconnectTimer = setTimeout(connectLina, 5000);
+            } else {
+              linaStatusText.textContent = 'No se pudo reconectar';
+            }
+          };
+        } catch (err) {
+          console.error('[LINA-Trasplantes] connection error', err);
+          updateStatus(false);
+          linaStatusText.textContent = 'Error de conexión';
+        }
+      }
+
+      function sendLinaMessage(text) {
+        const t = text.trim();
+        if (!t) return;
+        hasShownStreaming = false;
+        stopAudio();
+        connectLina();
+        addMessage(t, 'user');
+        linaInput.value = '';
+        setTyping(true);
+        let attempts = 0;
+        function trySend() {
+          if (sendWs({ type: 'user_message', text: t, source_medium: 'text' })) return;
+          if (++attempts < 25) setTimeout(trySend, 250);
+          else { setTyping(false); addMessage('No pude conectar con LINA-Trasplantes. Intenta recargar la página o llama a recepción.', 'lina', true); }
+        }
+        trySend();
+      }
+
+      linaForm.addEventListener('submit', e => { e.preventDefault(); sendLinaMessage(linaInput.value); });
+
+      linaMessages.addEventListener('click', e => {
+        const chip = e.target.closest('.lina-chip');
+        if (chip) sendLinaMessage(chip.textContent);
+      });
+      const linaSuggestions = document.getElementById('lina-suggestions');
+      if (linaSuggestions) {
+        linaSuggestions.addEventListener('click', e => {
+          const chip = e.target.closest('.lina-chip');
+          if (chip) sendLinaMessage(chip.textContent);
+        });
+      }
+
+      linaMic.addEventListener('click', () => {
+        const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SR) { addMessage('Tu navegador no soporta reconocimiento de voz. Por favor escribe tu mensaje.', 'lina', true); return; }
+        try {
+          const recog = new SR();
+          recog.lang = 'es-MX';
+          recog.interimResults = false;
+          recog.maxAlternatives = 1;
+          linaMic.classList.add('active');
+          linaMic.setAttribute('aria-label', 'Escuchando');
+          recog.start();
+          recog.onresult = (event) => { const t = event.results[0][0].transcript; linaInput.value = t; sendLinaMessage(t); };
+          recog.onerror = () => { linaMic.classList.remove('active'); linaMic.setAttribute('aria-label', 'Hablar'); };
+          recog.onend = () => { linaMic.classList.remove('active'); linaMic.setAttribute('aria-label', 'Hablar'); };
+        } catch (e) { console.error(e); linaMic.classList.remove('active'); }
+      });
+
+      linaVoice.addEventListener('click', () => {
+        voiceEnabled = !voiceEnabled;
+        if (voiceEnabled) {
+          unlockAudio();
+          linaVoice.textContent = 'Voz activada';
+          linaVoice.classList.add('active');
+        } else {
+          linaVoice.textContent = 'Activar voz';
+          linaVoice.classList.remove('active');
+          stopAudio();
+        }
+      });
+
+      linaNew.addEventListener('click', () => {
+        stopAudio();
+        if (ws) { ws.close(); ws = null; }
+        currentAssistantBubble = null;
+        currentAudioBubble = null;
+        currentAssistantText = '';
+        currentAudioChunks = [];
+        reconnectCount = 0;
+        linaMessages.innerHTML = '<div class="lina-typing" id="lina-connecting">Conectando con LINA-Trasplantes...</div>';
+        connectLina();
+      });
+
+      linaEmergency.addEventListener('click', () => { window.location.href = 'tel:911'; });
+      if (linaCall) {
+        linaCall.addEventListener('click', () => {
+          const phone = contactPhone.replace(/\D/g, '');
+          if (phone) window.location.href = `tel:+52${phone}`;
+        });
+      }
+
+      (async () => {
+        try {
+          const res = await fetch(`${API_BASE}/contact-info`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+          if (!res.ok) return;
+          const data = await res.json();
+          if (data.success && data.contact && data.contact.phone) {
+            contactPhone = data.contact.phone;
+            if (linaCall) linaCall.textContent = `Llamar a recepción ${contactPhone}`;
+          }
+        } catch (e) { console.log('No se pudo cargar teléfono de recepción', e); }
+      })();
+
+      const linaObserver = new IntersectionObserver((entries) => { if (entries.some(e => e.isIntersecting)) { connectLina(); linaObserver.disconnect(); } }, { threshold: 0.1 });
+      linaObserver.observe(document.getElementById('lina'));
+    })();
+  </script>
+  <script>
+    (function () {
+      const API_BASE = '/api/elevenlabs-public';
+      const form = document.getElementById('transplant-contact-form');
+      const statusEl = document.getElementById('form-status');
+      const submitBtn = document.getElementById('transplant-contact-submit');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(form).entries());
+        data.consent = form.consent.checked;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+        statusEl.textContent = '';
+        try {
+          const res = await fetch(`${API_BASE}/transplant-contact`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+          const result = await res.json();
+          statusEl.textContent = result.message || (result.success ? 'Gracias, un coordinador te contactará pronto.' : 'No se pudo enviar la solicitud.');
+          if (result.success) form.reset();
+        } catch (err) {
+          statusEl.textContent = 'No se pudo enviar la solicitud por un problema de conexión. Intenta de nuevo o llama a recepción.';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Enviar solicitud';
+        }
+      });
+    })();
+  </script>
 </section>
 
 <section>
