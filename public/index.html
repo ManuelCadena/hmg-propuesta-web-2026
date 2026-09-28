@@ -44,11 +44,13 @@
     .nav {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 0.9rem 1.5rem;
+      padding: 1.1rem 1.5rem;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
+      justify-content: center;
+      gap: 0.65rem;
+      text-align: center;
     }
     .brand {
       display: inline-flex;
@@ -56,9 +58,17 @@
       text-decoration: none;
     }
     .brand img {
-      height: 42px;
+      height: 80px;
       width: auto;
       display: block;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 1.5rem;
+      align-items: center;
+      font-size: 0.92rem;
     }
     .nav-links {
       display: flex;
@@ -103,22 +113,38 @@
     .hero-inner {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 3rem 1.5rem;
+      padding: 2.5rem 1.5rem;
       width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hero-logo img {
+      max-width: 320px;
+      width: 80%;
+      height: auto;
+      margin-bottom: 1.25rem;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08));
     }
     .hero h1 {
       font-size: clamp(2rem, 5vw, 3rem);
       line-height: 1.15;
-      margin: 0 0 1rem;
-      max-width: 640px;
+      margin: 0 auto 1rem;
+      max-width: 720px;
     }
     .hero p {
       font-size: 1.15rem;
       color: var(--muted);
-      max-width: 560px;
-      margin: 0 0 1.8rem;
+      max-width: 680px;
+      margin: 0 auto 1.8rem;
     }
-    .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .hero-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
     .section {
       max-width: var(--max-width);
       margin: 0 auto;
@@ -254,6 +280,9 @@
 
   <section class="hero">
     <div class="hero-inner">
+      <div class="hero-logo">
+        <img src="logo-hmg.jpg" alt="Hospital HMG Coyoacán" />
+      </div>
       <h1>Encuentra al médico adecuado para ti</h1>
       <p>En Hospital HMG Coyoacán conectamos pacientes con profesionales independientes de la salud. Busca por especialidad, síntoma o nombre y contacta directamente.</p>
       <div class="hero-actions">
