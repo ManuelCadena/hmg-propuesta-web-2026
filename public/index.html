@@ -256,6 +256,8 @@
       padding: 1.5rem;
     }
     .status-msg.error { color: #b42318; background: #fff0f0; border-radius: var(--radius); }
+    .hidden { display: none !important; }
+    .disclaimer-small { font-size: 0.82rem; color: #6b7b7f; margin-top: 0.6rem; }
     .workflow {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -382,7 +384,7 @@
     <div class="search-box">
       <input type="text" id="search-input" placeholder="Ej. Cardiología, Pediatra, García..." aria-label="Buscar médico o especialidad" />
       <button class="btn btn-primary" id="search-btn">Buscar</button>
-      <button class="btn btn-secondary" id="clear-btn" style="display:none">Limpiar</button>
+      <button class="btn btn-secondary hidden" id="clear-btn">Limpiar</button>
     </div>
 
     <div class="specialties" id="specialty-cloud">
@@ -500,7 +502,7 @@
               <p><span class="label">Consultorio:</span> ${escapeHtml(d.consultorio)}</p>
               <p><span class="label">Profesión:</span> ${escapeHtml(d.profesion)} · ${escapeHtml(d.cedula)}</p>
               ${(phoneLink || whatsappLink || emailLink) ? `<div>${phoneLink}${whatsappLink}${emailLink}</div>` : ''}
-              <p style="font-size:0.82rem;color:#6b7b7f;margin-top:0.6rem;">${escapeHtml(d.disclaimer)}</p>
+              <p class="disclaimer-small">${escapeHtml(d.disclaimer)}</p>
             </article>
           `;
         }).join('');
@@ -508,7 +510,7 @@
 
       async function searchDoctors(payload) {
         results.innerHTML = '<div class="status-msg">Buscando médicos...</div>';
-        clearBtn.style.display = 'inline-flex';
+        clearBtn.classList.remove('hidden');
         try {
           const res = await fetch(`${API_BASE}/search-doctors`, {
             method: 'POST',
@@ -567,7 +569,7 @@
         input.value = '';
         cloud.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
         results.innerHTML = '';
-        clearBtn.style.display = 'none';
+        clearBtn.classList.add('hidden');
       });
 
       // Load dynamic specialty list from backend and replace chips if available
