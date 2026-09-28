@@ -522,6 +522,27 @@ No se dispone de un generador de imágenes directo en este entorno; por ello se 
 
 ---
 
+## 17. Assets generados y repositorios
+
+### Imágenes generadas con IA
+
+| Uso | Archivo | Modelo | Dimensiones |
+|---|---|---|---|
+| Hero homepage | `assets/img_hero_exterior.png` | OpenAI gpt-image-1-mini | 1536×1024 |
+| Atención médica humana | `assets/img_atencion_humana.png` | OpenAI gpt-image-1-mini | 1024×1536 |
+| Tecnología y precisión | `assets/img_tecnologia_precision.png` | OpenAI gpt-image-1-mini | 1536×1024 |
+| Equipo multidisciplinario | `assets/img_equipo_multidisciplinario.png` | OpenAI gpt-image-1-mini | 1536×1024 |
+| Bienestar y prevención | `assets/img_bienestar_prevencion.png` | OpenAI gpt-image-1-mini | 1536×1024 |
+
+> Las imágenes fueron generadas con instrucciones que evitan texto legible, logos alterados, personas identificables y promesas de resultados médicos. Deben revisarse antes de su uso público.
+
+### Repositorios en GitHub
+
+| Repositorio | Contenido | URL |
+|---|---|---|
+| `ManuelCadena/hmg-crm` | Backend CRM con endpoints públicos blindados de LINA | https://github.com/ManuelCadena/hmg-crm |
+| `ManuelCadena/hmg-propuesta-web-2026` | Propuesta, guía gráfica e imágenes | https://github.com/ManuelCadena/hmg-propuesta-web-2026 |
+
 ## 16. Referencias y fuentes
 
 1. Contrato de Licencia de Uso No Exclusiva y Gratuita de Signos Distintivos, 04 de marzo de 2024. Anexos A, B y C.
