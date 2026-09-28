@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HMG Trasplante Hepático Pediátrico — Donador Vivo a Vivo</title>
+<meta name="description" content="Información clínica y pedagógica sobre trasplante hepático pediátrico con donador vivo a vivo (DVV): qué es, cómo es la cirugía, evaluación del donador, riesgos y recuperación. Programa HMG en alianza con equipo médico de Fight for Life Club e Instituto Nacional de Pediatría." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --hmg-teal: #007481;
+    --hmg-teal-dark: #005f6b;
+    --hmg-teal-light: #7ebec5;
+    --hmg-blue: #2ea3f2;
+    --bg: #ffffff;
+    --surface: #f7f9fa;
+    --text: #1a2a2e;
+    --muted: #5b6b6f;
+    --amber: #b5651d;
+    --amber-bg: #fff4e8;
+    --radius: 14px;
+    --shadow: 0 10px 30px rgba(0,0,0,0.07);
+    --max-width: 1160px;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:"Open Sans","Inter",system-ui,-apple-system,BlinkMacSystemFont,sans-serif; color:var(--text); background:var(--bg); line-height:1.6; }
+  a { color:var(--hmg-teal); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  header { position:sticky; top:0; background:rgba(255,255,255,0.98); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,116,129,0.08); z-index:1000; }
+  .nav { max-width:var(--max-width); margin:0 auto; padding:0.85rem 1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+  .brand { display:inline-flex; align-items:center; gap:0.6rem; font-weight:700; color:var(--hmg-teal-dark); font-size:1.05rem; }
+  .brand img { height:40px; width:auto; display:block; }
+  .nav-links { display:flex; align-items:center; gap:1.3rem; font-size:0.92rem; flex-wrap:wrap; }
+  .nav-links a { color:var(--text); font-weight:500; }
+  .nav-links a:hover { color:var(--hmg-teal); }
+  .btn { display:inline-flex; align-items:center; justify-content:center; padding:0.7rem 1.3rem; border-radius:999px; font-weight:600; font-size:0.95rem; cursor:pointer; border:1px solid transparent; }
+  .btn-primary { background:var(--hmg-teal); color:#fff; }
+  .btn-primary:hover { background:var(--hmg-teal-dark); text-decoration:none; }
+  .btn-secondary { background:#fff; color:var(--hmg-teal); border:1px solid rgba(0,116,129,0.3); }
+  .btn-secondary:hover { text-decoration:none; background:rgba(0,116,129,0.06); }
+
+  .hero { max-width:var(--max-width); margin:0 auto; padding:3.5rem 1.5rem 2.5rem; text-align:center; }
+  .hero h1 { font-size:clamp(1.8rem,4vw,2.6rem); margin:0 0 1rem; color:var(--hmg-teal-dark); font-weight:700; }
+  .hero p.lead { font-size:1.1rem; color:var(--muted); max-width:760px; margin:0 auto 1.6rem; }
+  .hero-cta { display:flex; gap:0.9rem; justify-content:center; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .hero-disclaimer { max-width:760px; margin:0 auto; font-size:0.88rem; color:var(--muted); background:var(--surface); border-radius:var(--radius); padding:0.9rem 1.2rem; }
+
+  section { max-width:var(--max-width); margin:0 auto; padding:3rem 1.5rem; }
+  section.alt { background:var(--surface); }
+  .section-title { font-size:1.6rem; text-align:center; margin-bottom:0.6rem; color:var(--text); font-weight:700; }
+  .section-subtitle { color:var(--muted); text-align:center; max-width:760px; margin:0 auto 2rem; }
+
+  .split-editorial { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; }
+  .editorial-card { border-radius:var(--radius); padding:1.5rem; }
+  .editorial-card.philanthropic { background:#eef7f1; border:1px solid rgba(28,130,80,0.18); }
+  .editorial-card.private { background:#eef5fb; border:1px solid rgba(46,163,242,0.18); }
+  .editorial-card h3 { margin-top:0; font-size:1.1rem; }
+  .editorial-card p { color:var(--muted); font-size:0.95rem; margin-bottom:0; }
+
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5rem; }
+  .card { background:var(--surface); border-radius:var(--radius); padding:1.4rem; }
+  .card h3 { margin:0 0 0.5rem; font-size:1.05rem; }
+  .card p { margin:0; color:var(--muted); font-size:0.92rem; }
+
+  .diagram-wrap { background:var(--surface); border-radius:var(--radius); padding:1.5rem; margin:1.5rem 0; overflow-x:auto; }
+  .diagram-caption { color:var(--muted); font-size:0.85rem; margin-top:0.6rem; text-align:center; }
+
+  table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.92rem; }
+  th, td { border:1px solid rgba(0,116,129,0.12); padding:0.65rem 0.8rem; text-align:left; }
+  th { background:var(--surface); color:var(--hmg-teal-dark); }
+
+  .faq-item { border-bottom:1px solid rgba(0,116,129,0.1); padding:1rem 0; }
+  .faq-item h4 { margin:0 0 0.4rem; font-size:1rem; color:var(--hmg-teal-dark); }
+  .faq-item p { margin:0; color:var(--muted); font-size:0.93rem; }
+
+  .questions-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+  .questions-grid ul { padding-left:1.1rem; margin:0.5rem 0 0; color:var(--muted); font-size:0.92rem; }
+  .questions-grid li { margin-bottom:0.45rem; }
+
+  .evidence-list { list-style:none; padding:0; margin:0; }
+  .evidence-list li { padding:0.9rem 0; border-bottom:1px solid rgba(0,116,129,0.1); font-size:0.92rem; color:var(--muted); }
+  .evidence-list strong { color:var(--text); }
+
+  .placeholder-box { background:var(--amber-bg); border:1px solid rgba(181,101,29,0.25); border-radius:var(--radius); padding:1.3rem; color:var(--amber); font-size:0.92rem; }
+
+  .legal { font-size:0.88rem; color:var(--muted); max-width:900px; margin:0 auto; background:var(--surface); border-radius:var(--radius); padding:1.4rem 1.6rem; }
+
+  form.contact-form { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; max-width:760px; margin:0 auto; }
+  form.contact-form label { display:flex; flex-direction:column; font-size:0.88rem; color:var(--muted); gap:0.35rem; }
+  form.contact-form input, form.contact-form select, form.contact-form textarea {
+    padding:0.65rem 0.8rem; border-radius:10px; border:1px solid rgba(0,116,129,0.25); font-family:inherit; font-size:0.95rem;
+  }
+  form.contact-form .full { grid-column:1 / -1; }
+  form.contact-form .consent { display:flex; align-items:flex-start; gap:0.5rem; font-size:0.85rem; }
+  .status-msg { text-align:center; color:var(--muted); }
+
+  footer { text-align:center; color:var(--muted); padding:2.5rem 1.5rem; font-size:0.88rem; border-top:1px solid rgba(0,116,129,0.08); }
+  footer a { color:var(--hmg-teal); }
+
+  @media (max-width:640px) {
+    .nav-links { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="/">
+      <img src="logo-hmg.png" alt="Hospital HMG" onerror="this.style.display='none'" />
+      HMG
+    </a>
+    <nav class="nav-links">
+      <a href="#que-es">Qué es DVV</a>
+      <a href="#cirugia">La cirugía</a>
+      <a href="#evaluacion">Evaluación</a>
+      <a href="#riesgos">Riesgos</a>
+      <a href="#evidencia">Evidencia</a>
+      <a href="#faq">Preguntas</a>
+      <a class="btn btn-primary" href="#contacto">Solicitar orientación</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Trasplante hepático pediátrico con donador vivo: información y evaluación especializada</h1>
+  <p class="lead">Orientación para familias que buscan conocer el proceso de evaluación de un posible trasplante hepático pediátrico con donador vivo a vivo (DVV), sujeto a valoración médica, criterios de seguridad y decisión del comité de trasplantes.</p>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#contacto">Solicitar orientación inicial</a>
+    <a class="btn btn-secondary" href="#cirugia">Conocer el proceso</a>
+  </div>
+  <p class="hero-disclaimer">Este sitio ofrece información general y no sustituye una valoración médica. La posibilidad de realizar un trasplante depende de la evaluación individual del paciente, del donador, de la infraestructura hospitalaria y de la decisión del comité de trasplantes. En una emergencia, llama al 911 o acude a urgencias.</p>
+</section>
+
+<section class="alt">
+  <h2 class="section-title">Dos formas de acceso, claramente separadas</h2>
+  <div class="split-editorial">
+    <div class="editorial-card philanthropic">
+      <h3>🤝 Atención filantrópica</h3>
+      <p>A través de la <strong>Fundación Fight for Life Club</strong> y la alianza con el <strong>Instituto Nacional de Pediatría (INP)</strong>, el equipo médico participa en la atención de casos filantrópicos conforme a los criterios, procesos y capacidades de dichas instituciones. Esta vía está dirigida a pacientes que cumplen los criterios institucionales correspondientes, particularmente en contextos de vulnerabilidad económica.</p>
+    </div>
+    <div class="editorial-card private">
+      <h3>🏥 Atención hospitalaria privada</h3>
+      <p>El programa de atención privada se encuentra en proceso de definición de sede hospitalaria en la Ciudad de México. La institución sede se confirmará posteriormente. Está dirigido a familias con seguro de gastos médicos mayores aplicable o que cubrirán directamente los servicios. La evaluación, indicación y realización del trasplante están sujetas a criterios médicos, administrativos, regulatorios y a la aprobación del comité de trasplantes.</p>
+    </div>
+  </div>
+</section>
+
+<section id="que-es">
+  <h2 class="section-title">¿Qué es el trasplante hepático con donador vivo a vivo?</h2>
+  <p class="section-subtitle">En un trasplante hepático con donador vivo, se evalúa a una persona adulta que podría donar una parte de su hígado a un niño o niña. El hígado tiene capacidad de regeneración parcial; sin embargo, la donación es una cirugía mayor y requiere una evaluación independiente y exhaustiva de la seguridad del donador.</p>
+
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 820 260" width="100%" height="260" role="img" aria-label="Regeneración hepática después de la donación">
+      <text x="410" y="24" text-anchor="middle" font-size="14" font-weight="600" fill="#1a2a2e">Regeneración hepática: donador y receptor</text>
+      <!-- donor liver before -->
+      <text x="150" y="55" text-anchor="middle" font-size="12" fill="#5b6b6f">Donador — antes</text>
+      <path d="M90 70 Q150 55 210 70 Q220 110 150 120 Q80 110 90 70 Z" fill="#7ebec5" opacity="0.9"/>
+      <text x="150" y="100" text-anchor="middle" font-size="11" fill="#003f47">100%</text>
+
+      <text x="150" y="150" text-anchor="middle" font-size="12" fill="#5b6b6f">Donador — después de donar (≈40-50%)</text>
+      <path d="M110 165 Q150 158 190 165 Q195 190 150 195 Q105 190 110 165 Z" fill="#7ebec5" opacity="0.9"/>
+      <text x="150" y="182" text-anchor="middle" font-size="10" fill="#003f47">40-50%</text>
+
+      <text x="150" y="230" text-anchor="middle" font-size="11" fill="#007481" font-style="italic">Se regenera a los pocos meses</text>
+
+      <!-- arrow -->
+      <path d="M260 130 L360 130" stroke="#007481" stroke-width="2" marker-end="url(#arrow)"/>
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#007481"/>
+        </marker>
+      </defs>
+
+      <!-- recipient liver -->
+      <text x="610" y="55" text-anchor="middle" font-size="12" fill="#5b6b6f">Receptor — hígado enfermo (retirado)</text>
+      <path d="M550 70 Q610 60 670 75 Q660 110 610 108 Q555 105 550 70 Z" fill="#f0b0a8" opacity="0.7"/>
+
+      <text x="610" y="150" text-anchor="middle" font-size="12" fill="#5b6b6f">Receptor — injerto implantado, crece hasta cubrir la función necesaria</text>
+      <path d="M560 165 Q610 155 660 168 Q655 200 610 202 Q565 198 560 165 Z" fill="#007481" opacity="0.85"/>
+      <text x="610" y="185" text-anchor="middle" font-size="10" fill="#fff">injerto</text>
+    </svg>
+    <p class="diagram-caption">Fuente: Mayo Clinic — Living-donor transplantation overview; American Liver Foundation, guía del donante (2026). Ilustración esquemática, no representa anatomía exacta.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card"><h3>Voluntariedad</h3><p>El donador debe entender que se somete a cirugía sin recibir un beneficio médico directo. Puede retirarse en cualquier momento del proceso, de forma confidencial.</p></div>
+    <div class="card"><h3>Compatibilidad</h3><p>Grupo sanguíneo, volumen hepático, anatomía vascular y biliar, y proporción injerto-receptor son evaluados de forma independiente — no basta la compatibilidad sanguínea.</p></div>
+    <div class="card"><h3>Sin garantía de resultado</h3><p>La literatura reporta resultados generalmente favorables en grupos pediátricos seleccionados, pero también complicaciones. La información poblacional no predice el resultado de un caso individual.</p></div>
+  </div>
+</section>
+
+<section class="alt" id="cirugia">
+  <h2 class="section-title">Cómo es la cirugía, paso a paso</h2>
+  <p class="section-subtitle">Fuente: Johns Hopkins Medicine — Living Donor Liver Surgery; TecSalud (México). Donador y receptor tienen equipos quirúrgicos independientes.</p>
+
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 900 220" width="100%" height="220" role="img" aria-label="Pasos de la cirugía de donador vivo">
+      <line x1="40" y1="110" x2="860" y2="110" stroke="#7ebec5" stroke-width="2"/>
+      <g font-size="10.5" fill="#1a2a2e">
+        <circle cx="80" cy="110" r="9" fill="#007481"/>
+        <text x="80" y="85" text-anchor="middle" font-weight="700">1</text>
+        <text x="80" y="140" text-anchor="middle" fill="#5b6b6f">Anestesia general + incisión</text>
+
+        <circle cx="220" cy="110" r="9" fill="#007481"/>
+        <text x="220" y="85" text-anchor="middle" font-weight="700">2</text>
+        <text x="220" y="140" text-anchor="middle" fill="#5b6b6f">Identificación de vasos y vías biliares</text>
+
+        <circle cx="360" cy="110" r="9" fill="#007481"/>
+        <text x="360" y="85" text-anchor="middle" font-weight="700">3</text>
+        <text x="360" y="140" text-anchor="middle" fill="#5b6b6f">Extracción del segmento (hepatectomía parcial)</text>
+
+        <circle cx="500" cy="110" r="9" fill="#2ea3f2"/>
+        <text x="500" y="85" text-anchor="middle" font-weight="700">4</text>
+        <text x="500" y="140" text-anchor="middle" fill="#5b6b6f">"Cirugía de banco": enfriamiento y preparación del injerto</text>
+
+        <circle cx="640" cy="110" r="9" fill="#2ea3f2"/>
+        <text x="640" y="85" text-anchor="middle" font-weight="700">5</text>
+        <text x="640" y="140" text-anchor="middle" fill="#5b6b6f">Implante en el receptor (quirófano paralelo)</text>
+
+        <circle cx="780" cy="110" r="9" fill="#005f6b"/>
+        <text x="780" y="85" text-anchor="middle" font-weight="700">6</text>
+        <text x="780" y="140" text-anchor="middle" fill="#5b6b6f">Cierre + traslado a UCI para vigilancia</text>
+      </g>
+      <text x="450" y="200" text-anchor="middle" font-size="11" fill="#007481" font-style="italic">Se verifica que el remanente hepático del donador sea suficiente y que el injerto tenga tamaño, irrigación y drenaje biliar adecuados.</text>
+    </svg>
+    <p class="diagram-caption">Fuente: Johns Hopkins Medicine (Living Donor Liver Surgery); TecScience/TecSalud, "TecSalud realiza trasplante de hígado de donador vivo" (2023).</p>
+  </div>
+
+  <div class="cards">
+    <div class="card"><h3>Vigilancia en recuperación</h3><p>Presión arterial, función hepática, hemoglobina, dolor, herida quirúrgica, posible fuga biliar y función pulmonar se vigilan de cerca en ambos pacientes.</p></div>
+    <div class="card"><h3>Movilización temprana</h3><p>El donador comienza progresivamente a sentarse, caminar y avanzar su dieta — reduce el riesgo de complicaciones pulmonares y trombosis.</p></div>
+    <div class="card"><h3>El alta no es el final</h3><p>La cicatrización interna y la recuperación de energía continúan durante semanas o meses después de salir del hospital.</p></div>
+  </div>
+</section>
+
+<section id="evaluacion">
+  <h2 class="section-title">Proceso de evaluación del donador</h2>
+  <p class="section-subtitle">Fuente: Johns Hopkins Medicine — Evaluation Process; American Liver Foundation; Puri et al. 2023, <em>Journal of Clinical and Experimental Hepatology</em> (PMC10709134).</p>
+
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 900 260" width="100%" height="260" role="img" aria-label="Etapas de evaluación del donador">
+      <line x1="60" y1="130" x2="840" y2="130" stroke="#7ebec5" stroke-width="2"/>
+      <g font-size="10.5">
+        <circle cx="100" cy="130" r="10" fill="#007481"/>
+        <text x="100" y="100" text-anchor="middle" font-weight="700" fill="#1a2a2e">Etapa 1</text>
+        <text x="100" y="160" text-anchor="middle" fill="#5b6b6f">Cuestionario, consentimiento inicial y defensor independiente del donador</text>
+
+        <circle cx="280" cy="130" r="10" fill="#007481"/>
+        <text x="280" y="100" text-anchor="middle" font-weight="700" fill="#1a2a2e">Etapa 2</text>
+        <text x="280" y="160" text-anchor="middle" fill="#5b6b6f">Estudios de sangre: función hepática, coagulación, grupo sanguíneo, serologías (VIH, hepatitis)</text>
+
+        <circle cx="460" cy="130" r="10" fill="#007481"/>
+        <text x="460" y="100" text-anchor="middle" font-weight="700" fill="#1a2a2e">Etapa 3</text>
+        <text x="460" y="160" text-anchor="middle" fill="#5b6b6f">Tomografía contrastada: volumen hepático, anatomía vascular y biliar</text>
+
+        <circle cx="640" cy="130" r="10" fill="#2ea3f2"/>
+        <text x="640" y="100" text-anchor="middle" font-weight="700" fill="#1a2a2e">Etapa 4</text>
+        <text x="640" y="160" text-anchor="middle" fill="#5b6b6f">Evaluación cardiaca y pulmonar (ECG, ecocardiograma, radiografía)</text>
+
+        <circle cx="800" cy="130" r="10" fill="#005f6b"/>
+        <text x="800" y="100" text-anchor="middle" font-weight="700" fill="#1a2a2e">Etapa 5</text>
+        <text x="800" y="160" text-anchor="middle" fill="#5b6b6f">Entrevista psicosocial y decisión multidisciplinaria del comité</text>
+      </g>
+      <text x="450" y="230" text-anchor="middle" font-size="11" fill="#007481" font-style="italic">El defensor independiente del donador verifica que la decisión sea libre, sin presión familiar, económica o emocional.</text>
+    </svg>
+    <p class="diagram-caption">Fuente: Johns Hopkins Medicine, Evaluation Process for Living Liver Donors.</p>
+  </div>
+</section>
+
+<section class="alt" id="riesgos">
+  <h2 class="section-title">Riesgos — con cifras citadas, no minimizadas</h2>
+  <p class="section-subtitle">La ética del trasplante de donador vivo exige que la seguridad del donador sea un fin independiente, no solo un medio para el éxito del receptor.</p>
+
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 780 200" width="100%" height="200" role="img" aria-label="Riesgo de mortalidad del donador, referencias históricas">
+      <text x="390" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="#1a2a2e">Riesgo de mortalidad del donador — referencias históricas agregadas (NO garantía individual)</text>
+      <line x1="70" y1="160" x2="740" y2="160" stroke="#7ebec5"/>
+      <rect x="100" y="60" width="60" height="100" fill="#7ebec5"/>
+      <text x="130" y="55" text-anchor="middle" font-size="11" fill="#1a2a2e">0.2%–1%</text>
+      <text x="130" y="180" text-anchor="middle" font-size="10" fill="#5b6b6f">Mortalidad global reportada (Weill Cornell: 0.2%; Puri et al. 2023: 0.3-1%)</text>
+      <rect x="300" y="30" width="60" height="130" fill="#2ea3f2"/>
+      <text x="330" y="25" text-anchor="middle" font-size="11" fill="#1a2a2e">≈1 en 300</text>
+      <text x="330" y="180" text-anchor="middle" font-size="10" fill="#5b6b6f">Riesgo de complicación potencialmente mortal (Mayo Clinic)</text>
+      <rect x="500" y="90" width="60" height="70" fill="#005f6b"/>
+      <text x="530" y="85" text-anchor="middle" font-size="11" fill="#1a2a2e">0 en 1</text>
+      <text x="530" y="180" text-anchor="middle" font-size="10" fill="#5b6b6f">Muertes reportadas en el centro Weill Cornell/NYP a la fecha de su guía</text>
+    </svg>
+    <p class="diagram-caption">Estas cifras son poblacionales e históricas de otros centros, no una predicción del resultado individual ni del programa HMG. Solicita siempre las tasas propias del centro y del cirujano.</p>
+  </div>
+
+  <table>
+    <tr><th>Categoría de riesgo</th><th>Detalle citado en las fuentes</th></tr>
+    <tr><td>Quirúrgico general</td><td>Sangrado, infección, coágulos, neumonía, complicaciones de la herida, reacción a la anestesia (Mayo Clinic, ALF)</td></tr>
+    <tr><td>Biliar</td><td>Fuga de bilis, estrechamiento o lesión de vías biliares, puede requerir drenaje o reintervención (Mayo Clinic, ALF)</td></tr>
+    <tr><td>Pared abdominal</td><td>Hernia o abombamiento abdominal (Mayo Clinic)</td></tr>
+    <tr><td>Función hepática</td><td>Insuficiencia hepática del remanente; en casos excepcionales, necesidad de trasplante para el propio donador (ALF)</td></tr>
+    <tr><td>Psicológico</td><td>Ansiedad, culpa si el receptor tiene complicaciones o rechazo, tensión familiar/financiera (Mayo Clinic, ALF)</td></tr>
+    <tr><td>Selección de donador</td><td>Razones de rechazo más comunes: renuencia del donador (21%), esteatosis macrovesicular &gt;10% (16%), retiro asistido (14%), volumen remanente inadecuado (13%) — Sharma et al. 2013</td></tr>
+  </table>
+</section>
+
+<section id="evidencia">
+  <h2 class="section-title">Evidencia científica y consenso internacional</h2>
+  <ul class="evidence-list">
+    <li><strong>Consenso internacional ILTS-iLDLT sobre seguridad del donador (2026).</strong> La International Liver Transplantation Society y el International Living Donor Liver Transplantation Group convocaron una conferencia de consenso (Toronto, marzo 2025) y publicaron 28 recomendaciones sobre aceptabilidad del donador (edad, IMC, esteatosis hepática), estudio médico-quirúrgico y evaluación psicosocial. (Selzner et al. 2026, <em>Liver Transplantation</em>, DOI: 10.1097/lvt.0000000000000798)</li>
+    <li><strong>Encuesta mundial de políticas de selección de donador vivo (2019).</strong> 24 centros con experiencia combinada de 19,009 trasplantes hepáticos de donador vivo en adultos reportaron sus criterios: relación peso injerto/receptor mínima ≤0.7 en 67% de centros, remanente hepático mínimo de 30% en 75%, edad límite mediana de 60 años. (Soin et al. 2019, <em>Transplantation</em>, DOI: 10.1097/tp.0000000000002475)</li>
+    <li><strong>Razones de no maduración de donadores potenciales.</strong> De 324 donadores evaluados para 219 receptores potenciales, 52.7% fueron descalificados; las causas más comunes fueron renuencia del donador, esteatosis hepática y retiro asistido — no principalmente variaciones anatómicas. (Sharma et al. 2013, <em>Transplantation</em>, DOI: 10.1097/tp.0b013e318274aba1)</li>
+    <li><strong>Protocolo de evaluación de donadores.</strong> Revisión que detalla el esquema de evaluación: historia clínica, coagulación, serologías, elastografía, tomografía trifásica para volumen y anatomía vascular, colangiorresonancia para vía biliar. (Puri et al. 2023, <em>Journal of Clinical and Experimental Hepatology</em>, PMC10709134)</li>
+    <li><strong>Criterios extendidos de donador sin comprometer seguridad.</strong> En 424 hepatectomías de donador vivo (105 con criterios extendidos), la falla hepática post-hepatectomía ocurrió en 10.1% de los casos, sin diferencia significativa entre donadores de criterio convencional vs. extendido. (Kim et al. 2020, <em>Transplantation</em>)</li>
+  </ul>
+</section>
+
+<section class="alt">
+  <h2 class="section-title">Contexto en México</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Marco médico-legal (IMSS)</h3>
+      <p>El compendio del IMSS sobre donación y trasplantes establece requisitos esenciales: mayoría de edad, capacidad mental, información completa de riesgos por un médico distinto al equipo que realizará el trasplante, consentimiento escrito y compatibilidad aceptable.</p>
+    </div>
+    <div class="card">
+      <h3>Un programa mexicano de referencia (TecSalud)</h3>
+      <p>TecSalud ha reportado supervivencia superior al 88% en sus trasplantes hepáticos de donador vivo — cifra similar a la reportada en Estados Unidos — y describe el mismo proceso de "cirugía de banco" que se documenta internacionalmente.</p>
+    </div>
+    <div class="card">
+      <h3>Escasez de donadores cadavéricos</h3>
+      <p>Según el Registro Nacional de Trasplantes citado por TecScience (enero 2023), 239 personas esperaban un hígado en México, con donadores cadavéricos insuficientes — contexto que hace relevante la vía de donador vivo.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Nuestro equipo</h2>
+  <p class="section-subtitle">El equipo médico que participa en este programa acumula experiencia en trasplante hepático pediátrico con donador vivo a vivo a través de la Fundación Fight for Life Club, en alianza con el Instituto Nacional de Pediatría (INP), atendiendo casos filantrópicos de bajos recursos.</p>
+  <div class="placeholder-box">
+    <strong>Sede hospitalaria en proceso de confirmación.</strong> El programa privado se implementará en una institución hospitalaria de la Ciudad de México cuya confirmación se comunicará cuando estén formalizados los acuerdos, autorizaciones sanitarias y procesos institucionales correspondientes. Por el momento, Hospital HMG opera este programa de forma virtual mientras se confirma la sede.
+  </div>
+</section>
+
+<section class="alt" id="faq">
+  <h2 class="section-title">Preguntas frecuentes</h2>
+  <div class="faq-item"><h4>¿Qué es un donador vivo a vivo?</h4><p>Es una persona adulta, generalmente familiar, que dona voluntariamente una parte de su hígado para trasplantarla a un paciente que lo necesita, tras una evaluación médica, anatómica y psicosocial independiente.</p></div>
+  <div class="faq-item"><h4>¿Quién puede ser posible donador?</h4><p>Adultos sanos, sin enfermedad hepática, cardiaca, pulmonar o renal importante, cáncer activo, ciertas infecciones o abuso activo de sustancias. La evaluación final la determina el equipo médico.</p></div>
+  <div class="faq-item"><h4>¿La compatibilidad sanguínea es suficiente?</h4><p>No. Es solo uno de varios factores; también se evalúan volumen hepático, anatomía vascular y biliar, y proporción injerto-receptor.</p></div>
+  <div class="faq-item"><h4>¿El trasplante está garantizado si existe un donador?</h4><p>No. La evaluación puede determinar que la donación no es segura para el donador o que el receptor no es candidato en ese momento. La decisión final corresponde al comité de trasplantes.</p></div>
+  <div class="faq-item"><h4>¿Cuánto tarda el proceso?</h4><p>Varía por caso. No existe un tiempo garantizado para la evaluación, autorización, programación o realización del procedimiento.</p></div>
+  <div class="faq-item"><h4>¿El programa privado es el mismo que la atención filantrópica en el INP?</h4><p>Es el mismo equipo médico, pero son vías de atención distintas, con procesos, instituciones y criterios de acceso diferentes.</p></div>
+  <div class="faq-item"><h4>¿Qué gastos cubre el seguro?</h4><p>Depende de la póliza, la aseguradora y el hospital sede. La cobertura no equivale a aprobación médica ni garantiza la realización del trasplante.</p></div>
+  <div class="faq-item"><h4>¿Dónde se realizaría el procedimiento?</h4><p>La sede hospitalaria privada está en proceso de confirmación. Se comunicará cuando estén formalizados los acuerdos correspondientes.</p></div>
+  <div class="faq-item"><h4>¿Qué riesgos existen para el niño y para el donador?</h4><p>Ver la sección "Riesgos" arriba, con cifras citadas de fuentes clínicas reconocidas (Mayo Clinic, American Liver Foundation, Weill Cornell, literatura revisada por pares).</p></div>
+  <div class="faq-item"><h4>¿Puedo iniciar la evaluación únicamente por internet?</h4><p>No. Esta página ofrece información general. La evaluación real requiere consulta médica presencial y estudios clínicos específicos.</p></div>
+</section>
+
+<section>
+  <h2 class="section-title">Preguntas que debes hacerle al equipo de trasplante</h2>
+  <p class="section-subtitle">Basado en las guías de Mayo Clinic y American Liver Foundation — llévalas por escrito a tu primera consulta.</p>
+  <div class="questions-grid">
+    <div>
+      <h4>Sobre experiencia y riesgo</h4>
+      <ul>
+        <li>¿Cuántas donaciones hepáticas en vida realiza este centro al año?</li>
+        <li>¿Cuáles son las tasas propias de complicaciones, reintervención y mortalidad?</li>
+        <li>¿Qué parte del hígado se extraería y cuánto quedaría?</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sobre evaluación y autonomía</h4>
+      <ul>
+        <li>¿Quién es mi defensor independiente del donador?</li>
+        <li>¿Puedo retirarme en cualquier momento y cómo se protege la confidencialidad?</li>
+        <li>¿Quién paga la evaluación, la cirugía, el seguimiento y las complicaciones?</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Sobre operación y recuperación</h4>
+      <ul>
+        <li>¿Cuánto tiempo estaré hospitalizado y cuándo puedo volver a trabajar?</li>
+        <li>¿Qué síntomas exigen acudir urgentemente al hospital?</li>
+        <li>¿Durante cuánto tiempo tendré controles de seguimiento?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="contacto">
+  <h2 class="section-title">Solicitar orientación inicial</h2>
+  <p class="section-subtitle">Un coordinador humano te contactará. No se solicita expediente clínico completo en este primer formulario.</p>
+  <form class="contact-form" onsubmit="event.preventDefault(); document.getElementById('form-status').textContent='Gracias, un coordinador te contactará pronto. (Formulario de demostración — sin backend conectado aún.)';">
+    <label>Nombre del adulto responsable<input type="text" required /></label>
+    <label>Teléfono<input type="tel" required /></label>
+    <label>Correo electrónico<input type="email" /></label>
+    <label>Edad aproximada del paciente<input type="number" min="0" max="17" /></label>
+    <label>Estado de residencia<input type="text" /></label>
+    <label>¿Existe un posible donador adulto?
+      <select><option>No sabe</option><option>Sí</option><option>No</option></select>
+    </label>
+    <label>Tipo de cobertura
+      <select><option>No sabe</option><option>Aseguradora privada</option><option>Pago privado</option></select>
+    </label>
+    <label class="full">Mensaje (opcional — no incluyas información clínica sensible)<textarea rows="3"></textarea></label>
+    <label class="full consent"><input type="checkbox" required /> Acepto ser contactado y he leído el aviso de privacidad.</label>
+    <button class="btn btn-primary full" type="submit">Enviar solicitud</button>
+  </form>
+  <p id="form-status" class="status-msg"></p>
+</section>
+
+<section>
+  <div class="legal">
+    <strong>Importante:</strong> Esta página ofrece información general y educativa. No sustituye una valoración médica presencial. HMG no garantiza disponibilidad de donador, órgano, tiempos de espera ni resultado clínico. Los servicios médicos son prestados por profesionales independientes bajo su propia responsabilidad profesional. En una emergencia, acuda a urgencias o llame al 911.
+  </div>
+</section>
+
+<footer>
+  Fuentes citadas: Mayo Clinic, Johns Hopkins Medicine, American Liver Foundation, Weill Cornell/NewYork-Presbyterian, TecScience/TecSalud, IMSS, y literatura revisada por pares (Liver Transplantation, Transplantation, Journal of Clinical and Experimental Hepatology). Ver referencias completas en <code>docs/00_LOG_MAESTRO_HALLAZGOS_HMG_TRASPLANTE.md</code>.<br/>
+  <a href="/">← Volver a hospitalhmg.com</a> · 2026-09-28
+</footer>
+
+</body>
+</html>
